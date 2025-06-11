@@ -15,7 +15,8 @@ public class RunningMatches {
         if (homeTeam.equals(awayTeam)) throw new ClashingTeamsException("");
         for (Match match : matches) {
             if (match.getHomeTeam().equals(homeTeam)
-            || match.getHomeTeam().equals(awayTeam)) throw new ClashingTeamsException("");
+            || match.getHomeTeam().equals(awayTeam)
+            || match.getAwayTeam().equals(homeTeam)) throw new ClashingTeamsException("");
         }
         matches.add(new Match(homeTeam, awayTeam));
     }
