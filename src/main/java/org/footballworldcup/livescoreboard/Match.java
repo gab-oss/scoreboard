@@ -2,10 +2,10 @@ package org.footballworldcup.livescoreboard;
 
 public class Match {
 
-    String homeTeam;
-    String awayTeam;
-    int homeTeamScore;
-    int awayTeamScore;
+    private String homeTeam;
+    private String awayTeam;
+    private int homeTeamScore;
+    private int awayTeamScore;
 
     Match () {}
 
@@ -16,19 +16,19 @@ public class Match {
         this.awayTeamScore = 0;
     }
 
-    public String getHomeTeam() {
+    String getHomeTeam() {
         return homeTeam;
     }
 
-    public String getAwayTeam() {
+    String getAwayTeam() {
         return awayTeam;
     }
 
-    public int getHomeTeamScore() {
+    int getHomeTeamScore() {
         return homeTeamScore;
     }
 
-    public int getAwayTeamScore() {
+    int getAwayTeamScore() {
         return awayTeamScore;
     }
 }
