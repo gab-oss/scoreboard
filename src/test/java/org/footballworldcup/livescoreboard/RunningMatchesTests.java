@@ -123,4 +123,20 @@ public class RunningMatchesTests {
         Assert.assertEquals(newAwayScore, match.getAwayTeamScore());
     }
 
+    @Test
+    public void whenMatchUpdatedWithLowerScoreForHome_shouldThrowException() throws ClashingTeamsException {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        int firstUpdateHomeScore = 1;
+        int secondUpdateHomeScore = 0;
+        int newAwayScore = 2;
+        runningMatches.add(homeTeam, awayTeam);
+        runningMatches.update(homeTeam, awayTeam, firstUpdateHomeScore, newAwayScore);
+
+        assertThrows(LowerScoreException.class, () -> {
+            runningMatches.update(homeTeam, awayTeam, secondUpdateHomeScore, newAwayScore);
+        });
+    }
+
 }
