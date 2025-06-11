@@ -29,7 +29,8 @@ public class RunningMatches {
     public void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) throws LowerScoreException {
         for (Match match : matches) {
             if (match.getHomeTeam().equals(homeTeam) && match.getAwayTeam().equals(awayTeam) ) {
-                if (match.getHomeTeamScore() > homeTeamScore) throw new LowerScoreException("");
+                if (match.getHomeTeamScore() > homeTeamScore
+                || match.getAwayTeamScore() > awayTeamScore) throw new LowerScoreException("");
                 match.setHomeTeamScore(homeTeamScore);
                 match.setAwayTeamScore(awayTeamScore);
             }
