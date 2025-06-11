@@ -5,3 +5,5 @@
 - a team is uniquely identified by its name
 - there can be many games running (started and unfinished) at the same time
 - a finished game can't be updated
+- the summary will be a list of objects of a library-provided class, with the class having a nice toString() - providing an already formatted summary-string seems restrictive for the user
+- 
