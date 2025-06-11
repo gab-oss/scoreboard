@@ -102,4 +102,25 @@ public class RunningMatchesTests {
         });
     }
 
+    @Test
+    public void whenMatchUpdatedAndExists_shouldHaveUpdatedScore() throws ClashingTeamsException {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        int newHomeScore = 1;
+        int newAwayScore = 2;
+        runningMatches.add(homeTeam, awayTeam);
+
+        runningMatches.update(homeTeam, awayTeam, newHomeScore, newAwayScore);
+
+        List<Match> matches = runningMatches.getMatches();
+        Match match = matches.getFirst();
+
+        Assert.assertEquals(1, matches.size());
+        Assert.assertEquals(homeTeam, match.getHomeTeam());
+        Assert.assertEquals(awayTeam, match.getAwayTeam());
+        Assert.assertEquals(newHomeScore, match.getHomeTeamScore());
+        Assert.assertEquals(newAwayScore, match.getAwayTeamScore());
+    }
+
 }
