@@ -20,12 +20,13 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam);
         List<Match> matches = runningMatches.getMatches();
-        Match match = matches.get(0);
+        Match match = matches.getFirst();
 
-        Assert.assertEquals(matches.size(), 1);
-        Assert.assertEquals(match.getHomeTeam(), homeTeam);
-        Assert.assertEquals(match.getAwayTeam(), awayTeam);
-        Assert.assertEquals(match.getHomeTeamScore(), 0);
-        Assert.assertEquals(match.getAwayTeamScore(), 0);
+        Assert.assertEquals(1, matches.size());
+        Assert.assertEquals(homeTeam, match.getHomeTeam());
+        Assert.assertEquals(awayTeam, match.getAwayTeam());
+        Assert.assertEquals(0, match.getHomeTeamScore());
+        Assert.assertEquals(0, match.getAwayTeamScore());
     }
+
 }
