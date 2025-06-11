@@ -103,7 +103,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchUpdatedAndExists_shouldHaveUpdatedScore() throws ClashingTeamsException {
+    public void whenMatchUpdatedAndExists_shouldHaveUpdatedScore() throws ClashingTeamsException, LowerScoreException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -124,7 +124,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchUpdatedWithLowerScoreForHome_shouldThrowException() throws ClashingTeamsException {
+    public void whenMatchUpdatedWithLowerScoreForHome_shouldThrowException() throws ClashingTeamsException, LowerScoreException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
