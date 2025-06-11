@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertThrows;
+
 public class RunningMatchesTests {
 
     @Test
@@ -27,6 +29,15 @@ public class RunningMatchesTests {
         Assert.assertEquals(awayTeam, match.getAwayTeam());
         Assert.assertEquals(0, match.getHomeTeamScore());
         Assert.assertEquals(0, match.getAwayTeamScore());
+    }
+
+    @Test
+    public void whenMatchAddedOfTeamAgainstItself_shouldThrowException() {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        assertThrows(ClashingTeamsException.class, () -> {
+            runningMatches.add(homeTeam, homeTeam);
+        });
     }
 
 }
