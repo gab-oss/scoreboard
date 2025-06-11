@@ -15,4 +15,7 @@ public class Scoreboard {
         return matches;
     }
 
+    public void start(String homeTeam, String awayTeam) {
+        matches.add(new Match());
+    }
 }
