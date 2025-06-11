@@ -16,7 +16,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchAddedWithDifferentTeams_getShouldReturnIt_withZeroScores() {
+    public void whenMatchAddedWithDifferentTeams_getShouldReturnIt_withZeroScores() throws ClashingTeamsException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
