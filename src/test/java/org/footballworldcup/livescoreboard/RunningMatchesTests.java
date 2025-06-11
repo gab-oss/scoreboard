@@ -139,4 +139,21 @@ public class RunningMatchesTests {
         });
     }
 
+    @Test
+    public void whenMatchUpdatedWithLowerScoreForAway_shouldThrowException() throws ClashingTeamsException, LowerScoreException {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        int newHomeScore = 2;
+        int firstUpdateAwayScore = 1;
+        int secondUpdateAwayScore = 0;
+
+        runningMatches.add(homeTeam, awayTeam);
+        runningMatches.update(homeTeam, awayTeam, newHomeScore, firstUpdateAwayScore);
+
+        assertThrows(LowerScoreException.class, () -> {
+            runningMatches.update(homeTeam, awayTeam, newHomeScore, secondUpdateAwayScore);
+        });
+    }
+
 }
