@@ -25,4 +25,13 @@ public class RunningMatches {
     List<Match> getMatches() {
         return matches;
     }
+
+    public void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) {
+        for (Match match : matches) {
+            if (match.getHomeTeam().equals(homeTeam) && match.getAwayTeam().equals(awayTeam) ) {
+                match.setHomeTeamScore(homeTeamScore);
+                match.setAwayTeamScore(awayTeamScore);
+            }
+        }
+    }
 }
