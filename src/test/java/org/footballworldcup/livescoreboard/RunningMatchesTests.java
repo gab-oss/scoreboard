@@ -41,7 +41,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchAddedButHomeTeamAlreadyPlaying_shouldThrowException() throws ClashingTeamsException {
+    public void whenMatchAddedButHomeTeamAlreadyPlayingAsHome_shouldThrowException() throws ClashingTeamsException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
