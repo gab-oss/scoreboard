@@ -40,4 +40,20 @@ public class RunningMatchesTests {
         });
     }
 
+    @Test
+    public void whenMatchAddedButHomeTeamAlreadyPlaying_shouldThrowException() throws ClashingTeamsException {
+        // add a valid match with Home
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        runningMatches.add(homeTeam, awayTeam);
+
+        // add another match with Home
+        String awayTeam2 = "Away2";
+
+        assertThrows(ClashingTeamsException.class, () -> {
+            runningMatches.add(homeTeam, awayTeam2);
+        });
+    }
+
 }
