@@ -13,4 +13,12 @@ public class ScoreboardTests {
         Assert.assertTrue(scoreboard.getSummary().isEmpty());
     }
 
+    @Test
+    public void afterStartingMatch_summaryShouldHaveIt() {
+        Scoreboard scoreboard = new Scoreboard();
+        scoreboard.start("Home", "Away");
+        List<Match> summary = scoreboard.getSummary();
+        Assert.assertEquals(1, summary.size());
+    }
+
 }
