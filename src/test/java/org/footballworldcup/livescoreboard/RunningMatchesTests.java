@@ -234,15 +234,17 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void givenRunningMatch_finishMatchShouldReturnIt() {
+    public void givenRunningMatch_finishMatchShouldReturnIt() throws MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
+        runningMatches.add(homeTeam, awayTeam);
+
         Match match = runningMatches.finish(homeTeam, awayTeam);
+        Assert.assertTrue(runningMatches.getMatches().isEmpty());
         Assert.assertEquals(homeTeam, match.getHomeTeam());
         Assert.assertEquals(awayTeam, match.getAwayTeam());
     }
-
 
 }

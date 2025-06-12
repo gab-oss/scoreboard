@@ -1,14 +1,15 @@
 package org.footballworldcup.livescoreboard;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class RunningMatches {
 
     List<Match> matches;
 
     RunningMatches() {
-        this.matches = new LinkedList<>();
+        this.matches = new ArrayList<>();
     }
 
     void add(String homeTeam, String awayTeam) throws ClashingTeamsException, BlankTeamNameException {
@@ -41,7 +42,15 @@ public class RunningMatches {
         throw new MatchNotFoundException("");
     }
 
-    public void finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
+    public Match finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
+        ListIterator<Match> iter = matches.listIterator();
+        while(iter.hasNext()){
+            Match match = iter.next();
+            if(match.getHomeTeam().equals(homeTeam) && match.getAwayTeam().equals(awayTeam)){
+                iter.remove();
+                return match;
+            }
+        }
         throw new MatchNotFoundException("");
     }
 }
