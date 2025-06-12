@@ -18,9 +18,15 @@ public class ScoreboardTests {
     @Test
     public void afterStartingMatch_summaryShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
         Scoreboard scoreboard = new Scoreboard();
-        scoreboard.start("Home", "Away");
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        scoreboard.start(homeTeam, awayTeam);
+
         List<Match> summary = scoreboard.getSummary();
         Assert.assertEquals(1, summary.size());
+        Assert.assertEquals(homeTeam, summary.getFirst().getHomeTeam());
+        Assert.assertEquals(awayTeam, summary.getFirst().getAwayTeam());
     }
 
     @Test
@@ -30,11 +36,13 @@ public class ScoreboardTests {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
-        scoreboard.start("Home", "Away"); // todo refactor
+        scoreboard.start(homeTeam, awayTeam);
         scoreboard.finish(homeTeam, awayTeam);
 
         List<Match> summary = scoreboard.getSummary();
         Assert.assertEquals(1, summary.size());
+        Assert.assertEquals(homeTeam, summary.getFirst().getHomeTeam());
+        Assert.assertEquals(awayTeam, summary.getFirst().getAwayTeam());
     }
 
     @Test
@@ -56,7 +64,7 @@ public class ScoreboardTests {
 
     @Test
     public void givenFinishedMatch_whenUpdating_shouldThrowError()
-            throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
+            throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
         Scoreboard scoreboard = new Scoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -65,17 +73,19 @@ public class ScoreboardTests {
 
         scoreboard.start(homeTeam, awayTeam);
 
-        // start another match to make sure it isn't changed/removed by finish
+        // start another match to make sure it doesn't get affected
         String homeTeam2 = "Home2";
         String awayTeam2 = "Away2";
         scoreboard.start(homeTeam2, awayTeam2);
 
+        // finish the first match
         scoreboard.finish(homeTeam, awayTeam);
 
         assertThrows(MatchNotFoundException.class, () -> {
             scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         });
 
+        // check if summary has both matches
         List<Match> matches = scoreboard.getSummary();
         Assert.assertEquals(2, matches.size());
 
