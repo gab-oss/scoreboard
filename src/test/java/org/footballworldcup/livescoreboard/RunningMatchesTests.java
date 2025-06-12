@@ -266,7 +266,7 @@ public class RunningMatchesTests {
         Assert.assertEquals(0, matches.get(0).getHomeTeamScore());
         Assert.assertEquals(0, matches.get(0).getAwayTeamScore());
         Assert.assertEquals(0, matches.get(1).getHomeTeamScore());
-        Assert.assertEquals(0, matches.get(1).getHomeTeamScore()); // to fix
+        Assert.assertEquals(0, matches.get(1).getAwayTeamScore());
     }
 
     @Test
