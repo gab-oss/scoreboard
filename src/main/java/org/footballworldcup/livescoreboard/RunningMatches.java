@@ -28,14 +28,16 @@ public class RunningMatches {
         return matches;
     }
 
-    public void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) throws LowerScoreException {
+    public void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) throws LowerScoreException, MatchNotFoundException {
         for (Match match : matches) {
             if (match.getHomeTeam().equals(homeTeam) && match.getAwayTeam().equals(awayTeam) ) {
                 if (match.getHomeTeamScore() > homeTeamScore
                 || match.getAwayTeamScore() > awayTeamScore) throw new LowerScoreException("");
                 match.setHomeTeamScore(homeTeamScore);
                 match.setAwayTeamScore(awayTeamScore);
+                return;
             }
         }
+        throw new MatchNotFoundException("");
     }
 }
