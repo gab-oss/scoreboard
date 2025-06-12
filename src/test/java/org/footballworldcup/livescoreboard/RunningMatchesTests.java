@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThrows;
 public class RunningMatchesTests {
 
     @Test
-    public void givenNoMatches_getShouldReturnEmptyList() {
+    public void givenNoMatches_getShouldReturnEmptyList() { // todo make test names more consistent, add before+after
         RunningMatches runningMatches = new RunningMatches();
         Assert.assertTrue(runningMatches.getMatches().isEmpty());
     }
