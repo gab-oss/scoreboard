@@ -174,6 +174,24 @@ public class RunningMatchesTests {
         });
     }
 
+    @Test
+    public void whenUpdatingNonrunningMatch_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        // matches of teams with same names to check if they won't be updated
+        String homeTeam2 = "Home2";
+        String awayTeam2 = "Away2";
+
+        runningMatches.add(homeTeam, awayTeam2);
+        runningMatches.add(homeTeam2, awayTeam);
+
+        assertThrows(MatchNotFound.class, () -> {
+            runningMatches.update(homeTeam, awayTeam, 0, 0);
+        });
+
+    }
 
 
 }
