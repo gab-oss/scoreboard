@@ -32,11 +32,27 @@ public class Match {
         return awayTeamScore;
     }
 
-    public void setHomeTeamScore(int homeTeamScore) {
+    void setHomeTeamScore(int homeTeamScore) {
         this.homeTeamScore = homeTeamScore;
     }
 
-    public void setAwayTeamScore(int awayTeamScore) {
+    void setAwayTeamScore(int awayTeamScore) {
         this.awayTeamScore = awayTeamScore;
     }
+
+    boolean isMatchOfTeams(String homeTeam, String awayTeam) {
+        return this.homeTeam.equals(homeTeam) && this.awayTeam.equals(awayTeam);
+    }
+
+    boolean isHigerScore(int homeTeamScore, int awayTeamScore) {
+        return this.homeTeamScore < homeTeamScore && this.awayTeamScore < awayTeamScore;
+    }
+
+    boolean isClashingByTeamName(String homeTeam, String awayTeam) {
+        return this.homeTeam.equals(homeTeam)
+                || this.homeTeam.equals(awayTeam)
+                || this.awayTeam.equals(homeTeam)
+                || this.awayTeam.equals(awayTeam);
+    }
+
 }

@@ -17,23 +17,18 @@ class RunningMatches {
     }
 
     void add(String homeTeam, String awayTeam) throws ClashingTeamsException, BlankTeamNameException {
-        if ( homeTeam == null || homeTeam.isBlank()
-                || awayTeam == null || awayTeam.isBlank()) throw new BlankTeamNameException("");
+        if (homeTeam == null || homeTeam.isBlank()) throw new BlankTeamNameException("");
+        if (awayTeam == null || awayTeam.isBlank()) throw new BlankTeamNameException("");
         if (homeTeam.equals(awayTeam)) throw new ClashingTeamsException("");
-        for (Match match : matches) {
-            if (match.getHomeTeam().equals(homeTeam)
-            || match.getHomeTeam().equals(awayTeam)
-            || match.getAwayTeam().equals(homeTeam)
-            || match.getAwayTeam().equals(awayTeam)) throw new ClashingTeamsException("");
-        }
+        if (!areTeamsFreeToPlay(homeTeam, awayTeam)) throw new ClashingTeamsException("");
         matches.add(new Match(homeTeam, awayTeam));
     }
 
-    void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) throws LowerScoreException, MatchNotFoundException {
+    void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore)
+            throws LowerScoreException, MatchNotFoundException {
         for (Match match : matches) {
-            if (match.getHomeTeam().equals(homeTeam) && match.getAwayTeam().equals(awayTeam) ) {
-                if (match.getHomeTeamScore() > homeTeamScore
-                || match.getAwayTeamScore() > awayTeamScore) throw new LowerScoreException("");
+            if (match.isMatchOfTeams(homeTeam, awayTeam)) {
+                if (!match.isHigerScore(homeTeamScore, awayTeamScore)) throw new LowerScoreException("");
                 match.setHomeTeamScore(homeTeamScore);
                 match.setAwayTeamScore(awayTeamScore);
                 return;
@@ -43,15 +38,22 @@ class RunningMatches {
     }
 
     Match finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
-        ListIterator<Match> iter = matches.listIterator();
-        while(iter.hasNext()){
-            Match match = iter.next();
-            if(match.getHomeTeam().equals(homeTeam) && match.getAwayTeam().equals(awayTeam)){
-                iter.remove();
+        ListIterator<Match> matchIter = matches.listIterator();
+        while(matchIter.hasNext()){
+            Match match = matchIter.next();
+            if(match.isMatchOfTeams(homeTeam, awayTeam)){
+                matchIter.remove();
                 return match;
             }
         }
         throw new MatchNotFoundException("");
+    }
+
+    private boolean areTeamsFreeToPlay(String homeTeam, String awayTeam) {
+        for (Match match : matches) {
+            if (match.isClashingByTeamName(homeTeam, awayTeam)) return false;
+        }
+        return true;
     }
 
 }
