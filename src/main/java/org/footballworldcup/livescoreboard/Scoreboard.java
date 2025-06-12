@@ -32,7 +32,7 @@ public class Scoreboard {
     }
 
     List<SummarizedMatch> getSummary() {
-        return new ArrayList<>();
+        return summarize(getMatches());
     }
 
     public void start(String homeTeam, String awayTeam)
@@ -49,5 +49,14 @@ public class Scoreboard {
             throws LowerScoreException, MatchNotFoundException {
         runningMatches.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
     }
-    
+
+    private List<SummarizedMatch> summarize(List<Match> matches) {
+        return matches
+                .stream()
+                .map(match -> new SummarizedMatch(
+                        match.getHomeTeam(), match.getAwayTeam(), match.getHomeTeamScore(), match.getAwayTeamScore())
+                )
+                .toList();
+    }
+
 }

@@ -260,7 +260,7 @@ public class ScoreboardTests {
 
         List<SummarizedMatch> matches = scoreboard.getSummary();
         assertMatchAsExpected(matches.get(0), uruguay, italy, uruguayScore, italyScore);
-        assertMatchAsExpected(matches.get(1), spain, brazil, brazilScore, spainScore);
+        assertMatchAsExpected(matches.get(1), spain, brazil, spainScore, brazilScore);
         assertMatchAsExpected(matches.get(2), mexico, canada, mexicoScore, canadaScore);
         assertMatchAsExpected(matches.get(3), argentina, australia, argentinaScore, australiaScore);
         assertMatchAsExpected(matches.get(4), germany, france, germanyScore, franceScore);
@@ -268,10 +268,10 @@ public class ScoreboardTests {
 
     private static void assertMatchAsExpected(SummarizedMatch match, String homeTeam, String awayTeam,
                                               int homeTeamScore, int awayTeamScore) {
-        Assert.assertEquals(homeTeam, match.getHomeTeam());
-        Assert.assertEquals(awayTeam, match.getAwayTeam());
-        Assert.assertEquals(homeTeamScore, match.getHomeTeamScore());
-        Assert.assertEquals(awayTeamScore, match.getAwayTeamScore());
+        Assert.assertEquals(homeTeam, match.homeTeam());
+        Assert.assertEquals(awayTeam, match.awayTeam());
+        Assert.assertEquals(homeTeamScore, match.homeTeamScore());
+        Assert.assertEquals(awayTeamScore, match.awayTeamScore());
     }
 
     private static void startAndUpdate(Scoreboard scoreboard, String homeTeam, String awayTeam,
