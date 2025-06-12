@@ -11,7 +11,8 @@ public class RunningMatches {
         this.matches = new LinkedList<>();
     }
 
-    void add(String homeTeam, String awayTeam) throws ClashingTeamsException {
+    void add(String homeTeam, String awayTeam) throws ClashingTeamsException, BlankTeamNameException {
+        if (homeTeam.isBlank() || awayTeam.isBlank()) throw new BlankTeamNameException("");
         if (homeTeam.equals(awayTeam)) throw new ClashingTeamsException("");
         for (Match match : matches) {
             if (match.getHomeTeam().equals(homeTeam)
