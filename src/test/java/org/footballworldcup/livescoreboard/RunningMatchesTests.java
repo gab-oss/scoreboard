@@ -251,16 +251,18 @@ public class RunningMatchesTests {
         int newHomeTeamScore = 1;
         int newAwayTeamScore = 2;
 
-        // matches of teams with same names to check if they won't be updated
+        // add matches of Home and Away with other teams to check if they won't be updated
         String homeTeam2 = "Home2";
         String awayTeam2 = "Away2";
-
         runningMatches.add(homeTeam, awayTeam2);
         runningMatches.add(homeTeam2, awayTeam);
 
-        assertThrows(MatchNotFoundException.class, () -> {
+        Exception exception = assertThrows(MatchNotFoundException.class, () -> {
             runningMatches.update(homeTeam, awayTeam, newHomeTeamScore, newAwayTeamScore);
         });
+
+        String expectedMessage = "Match not found";
+        Assert.assertEquals(expectedMessage, exception.getMessage());
 
         List<Match> matches = runningMatches.getMatches();
         Assert.assertEquals(0, matches.get(0).getHomeTeamScore());
