@@ -5,6 +5,7 @@ import org.footballworldcup.livescoreboard.exceptions.ClashingTeamsException;
 import org.footballworldcup.livescoreboard.exceptions.LowerScoreException;
 import org.footballworldcup.livescoreboard.exceptions.MatchNotFoundException;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -23,11 +24,15 @@ public class Scoreboard {
         this.nextMatchNo = 0;
     }
 
-    List<Match> getMatches() {
+    List<Match> getMatches() { // todo move
         return Stream
                 .concat(runningMatches.getMatches().stream(), finishedMatches.stream())
                 .sorted(matchesComparator)
                 .toList();
+    }
+
+    List<SummarizedMatch> getSummary() {
+        return new ArrayList<>();
     }
 
     public void start(String homeTeam, String awayTeam)
