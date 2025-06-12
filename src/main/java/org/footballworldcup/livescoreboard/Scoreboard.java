@@ -2,25 +2,34 @@ package org.footballworldcup.livescoreboard;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Scoreboard {
 
-    private List<Match> matches;
+    private RunningMatches runningMatches;
+    private List<Match> matches; // todo change name, final
 
     Scoreboard() {
+        this.runningMatches = new RunningMatches();
         this.matches = new LinkedList<>();
     }
 
     public List<Match> getSummary() {
-        return matches;
+        return Stream.concat(runningMatches.getMatches().stream(), matches.stream()).toList();
     }
 
-    public void start(String homeTeam, String awayTeam) {
-        matches.add(new Match());
+    public void start(String homeTeam, String awayTeam)
+            throws ClashingTeamsException, BlankTeamNameException {
+        runningMatches.add(homeTeam, awayTeam);
     }
 
     public void finish(String homeTeam, String awayTeam) {
 
     }
 
+    public void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) 
+            throws LowerScoreException, MatchNotFoundException {
+        runningMatches.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
+    }
+    
 }

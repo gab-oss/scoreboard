@@ -14,7 +14,7 @@ public class ScoreboardTests {
     }
 
     @Test
-    public void afterStartingMatch_summaryShouldHaveIt() {
+    public void afterStartingMatch_summaryShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
         Scoreboard scoreboard = new Scoreboard();
         scoreboard.start("Home", "Away");
         List<Match> summary = scoreboard.getSummary();
@@ -22,7 +22,7 @@ public class ScoreboardTests {
     }
 
     @Test
-    public void givenFinishedMatch_summaryShouldHaveIt() {
+    public void givenFinishedMatch_summaryShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
         Scoreboard scoreboard = new Scoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -35,7 +35,8 @@ public class ScoreboardTests {
     }
 
     @Test
-    public void givenStartedMatch_afterUpdate_summaryShouldHaveUpdatedScore() {
+    public void givenStartedMatch_afterUpdate_summaryShouldHaveUpdatedScore()
+            throws LowerScoreException, MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
         Scoreboard scoreboard = new Scoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -48,7 +49,6 @@ public class ScoreboardTests {
         Match match = scoreboard.getSummary().getFirst();
         Assert.assertEquals(homeTeamScore, match.getHomeTeamScore());
         Assert.assertEquals(awayTeamScore, match.getAwayTeamScore());
-
     }
 
 }
