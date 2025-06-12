@@ -111,12 +111,15 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam);
 
+        String expectedMessage = "Team already playing";
+
         // add another match with Home
         String awayTeam2 = "Away2";
-
-        assertThrows(ClashingTeamsException.class, () -> {
+        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
             runningMatches.add(homeTeam, awayTeam2);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -128,12 +131,15 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam);
 
+        String expectedMessage = "Team already playing";
+
         // add another match with Home
         String awayTeam2 = "Away2";
-
-        assertThrows(ClashingTeamsException.class, () -> {
+        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
             runningMatches.add(awayTeam2, homeTeam);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -147,9 +153,13 @@ public class RunningMatchesTests {
 
         String awayTeam2 = "Away2";
 
-        assertThrows(ClashingTeamsException.class, () -> {
+        String expectedMessage = "Team already playing";
+
+        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
             runningMatches.add(awayTeam, awayTeam2);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -163,9 +173,13 @@ public class RunningMatchesTests {
 
         String awayTeam2 = "Away2";
 
-        assertThrows(ClashingTeamsException.class, () -> {
+        String expectedMessage = "Team already playing";
+
+        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
             runningMatches.add(awayTeam2, awayTeam);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
