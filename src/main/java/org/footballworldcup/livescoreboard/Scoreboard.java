@@ -8,14 +8,19 @@ public class Scoreboard {
 
     private RunningMatches runningMatches;
     private List<Match> matches; // todo change name, final
+    private MatchesComparator matchesComparator;
 
     Scoreboard() {
         this.runningMatches = new RunningMatches();
         this.matches = new LinkedList<>();
+        this.matchesComparator = new MatchesComparator();
     }
 
     public List<Match> getSummary() {
-        return Stream.concat(runningMatches.getMatches().stream(), matches.stream()).toList();
+        return Stream
+                .concat(runningMatches.getMatches().stream(), matches.stream())
+                .sorted(matchesComparator)
+                .toList();
     }
 
     public void start(String homeTeam, String awayTeam)

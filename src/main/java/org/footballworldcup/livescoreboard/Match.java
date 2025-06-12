@@ -55,4 +55,8 @@ public class Match {
                 || this.awayTeam.equals(awayTeam);
     }
 
+    int getTotalScore() {
+        return homeTeamScore + awayTeamScore;
+    }
+
 }
