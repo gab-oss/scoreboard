@@ -81,6 +81,7 @@ public class ScoreboardTests {
         // finish the first match
         scoreboard.finish(homeTeam, awayTeam);
 
+        // try to update the finished match
         assertThrows(MatchNotFoundException.class, () -> {
             scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         });
@@ -95,5 +96,35 @@ public class ScoreboardTests {
         Assert.assertEquals(0, matches.getLast().getHomeTeamScore());
         Assert.assertEquals(0, matches.getLast().getAwayTeamScore());
     }
+
+    @Test
+    public void givenTwoRunningMatchesWithDifferentScores_summaryShouldHaveThemOrdered()
+            throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
+        Scoreboard scoreboard = new Scoreboard();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        scoreboard.start(homeTeam, awayTeam);
+
+        // start another match
+        String homeTeam2 = "Home2";
+        String awayTeam2 = "Away2";
+        scoreboard.start(homeTeam2, awayTeam2);
+
+        // update the scores
+        int newHomeTeamScore = 1;
+        int newAwayTeamScore = 0;
+        int newHome2TeamScore = 1;
+        int newAway2TeamScore = 1;
+        scoreboard.update(homeTeam, awayTeam, newHomeTeamScore, newAwayTeamScore);
+        scoreboard.update(homeTeam2, awayTeam2, newHome2TeamScore, newAway2TeamScore);
+
+        // check order
+        List<Match> matches = scoreboard.getSummary();
+        Assert.assertEquals(homeTeam2, matches.getFirst().getHomeTeam());
+        Assert.assertEquals(awayTeam2, matches.getFirst().getAwayTeam());
+        Assert.assertEquals(homeTeam, matches.getLast().getHomeTeam());
+        Assert.assertEquals(awayTeam, matches.getLast().getAwayTeam());
+    }
+
 
 }
