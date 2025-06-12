@@ -21,6 +21,7 @@ public class RunningMatchesTests {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
+
         runningMatches.add(homeTeam, awayTeam);
         List<Match> matches = runningMatches.getMatches();
         Match match = matches.getFirst();
@@ -91,10 +92,14 @@ public class RunningMatchesTests {
     @Test
     public void whenAddingMatchOfTeamAgainstItself_shouldThrowException() {
         RunningMatches runningMatches = new RunningMatches();
-        String homeTeam = "Home";
-        assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(homeTeam, homeTeam);
+        String team = "Team";
+        String expectedMessage = "A team can't play a match against itself";
+
+        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
+            runningMatches.add(team, team);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
