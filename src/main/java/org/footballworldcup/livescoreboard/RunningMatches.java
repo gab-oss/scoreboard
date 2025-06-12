@@ -17,8 +17,8 @@ class RunningMatches {
     }
 
     void add(String homeTeam, String awayTeam) throws ClashingTeamsException, BlankTeamNameException {
-        if (homeTeam == null || homeTeam.isBlank()) throw new BlankTeamNameException("");
-        if (awayTeam == null || awayTeam.isBlank()) throw new BlankTeamNameException("");
+        if (homeTeam == null || homeTeam.isBlank()) throw new BlankTeamNameException("Home team name is empty");
+        if (awayTeam == null || awayTeam.isBlank()) throw new BlankTeamNameException("Away team name is empty");
         if (homeTeam.equals(awayTeam)) throw new ClashingTeamsException("");
         if (!areTeamsFreeToPlay(homeTeam, awayTeam)) throw new ClashingTeamsException("");
         matches.add(new Match(homeTeam, awayTeam));
