@@ -222,5 +222,16 @@ public class RunningMatchesTests {
         Assert.assertEquals(0, matches.get(1).getHomeTeamScore());
     }
 
+    @Test
+    public void givenNoMatches_whenFinishingMatch_throwException() {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        assertThrows(MatchNotFoundException.class, () -> {
+            runningMatches.finish(homeTeam, awayTeam);
+        });
+    }
+
 
 }
