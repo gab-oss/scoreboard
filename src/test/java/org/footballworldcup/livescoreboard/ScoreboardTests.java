@@ -14,27 +14,27 @@ import static org.junit.Assert.assertThrows;
 public class ScoreboardTests {
 
     @Test
-    public void whenNoMatches_summaryShouldBeEmpty() {
+    public void whenNoMatches_matchesShouldBeEmpty() {
         Scoreboard scoreboard = new Scoreboard();
         Assert.assertTrue(scoreboard.getMatches().isEmpty());
     }
 
     @Test
-    public void afterStartingMatch_summaryShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
+    public void afterStartingMatch_matchesShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
         Scoreboard scoreboard = new Scoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
         scoreboard.start(homeTeam, awayTeam);
 
-        List<Match> summary = scoreboard.getMatches();
-        Assert.assertEquals(1, summary.size());
-        Assert.assertEquals(homeTeam, summary.getFirst().getHomeTeam());
-        Assert.assertEquals(awayTeam, summary.getFirst().getAwayTeam());
+        List<Match> matches = scoreboard.getMatches();
+        Assert.assertEquals(1, matches.size());
+        Assert.assertEquals(homeTeam, matches.getFirst().getHomeTeam());
+        Assert.assertEquals(awayTeam, matches.getFirst().getAwayTeam());
     }
 
     @Test
-    public void givenFinishedMatch_summaryShouldHaveIt()
+    public void givenFinishedMatch_matchesShouldHaveIt()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
         Scoreboard scoreboard = new Scoreboard();
         String homeTeam = "Home";
@@ -43,14 +43,14 @@ public class ScoreboardTests {
         scoreboard.start(homeTeam, awayTeam);
         scoreboard.finish(homeTeam, awayTeam);
 
-        List<Match> summary = scoreboard.getMatches();
-        Assert.assertEquals(1, summary.size());
-        Assert.assertEquals(homeTeam, summary.getFirst().getHomeTeam());
-        Assert.assertEquals(awayTeam, summary.getFirst().getAwayTeam());
+        List<Match> matches = scoreboard.getMatches();
+        Assert.assertEquals(1, matches.size());
+        Assert.assertEquals(homeTeam, matches.getFirst().getHomeTeam());
+        Assert.assertEquals(awayTeam, matches.getFirst().getAwayTeam());
     }
 
     @Test
-    public void givenStartedMatch_afterUpdate_summaryShouldHaveUpdatedScore()
+    public void givenStartedMatch_afterUpdate_matchesShouldHaveUpdatedScore()
             throws LowerScoreException, MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
         Scoreboard scoreboard = new Scoreboard();
         String homeTeam = "Home";
@@ -90,7 +90,7 @@ public class ScoreboardTests {
             scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         });
 
-        // check if summary has both matches
+        // check if matches have both
         List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(2, matches.size());
 
@@ -102,7 +102,7 @@ public class ScoreboardTests {
     }
 
     @Test
-    public void givenMatchesWithDifferentScores_summaryShouldHaveThemOrdered()
+    public void givenMatchesWithDifferentScores_matchesShouldHaveThemOrdered()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
         Scoreboard scoreboard = new Scoreboard();
 
@@ -158,7 +158,7 @@ public class ScoreboardTests {
     }
 
     @Test
-    public void givenMatchesWithSameScores_summaryShouldHaveThemOrdered()
+    public void givenMatchesWithSameScores_matchesShouldHaveThemOrdered()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
         Scoreboard scoreboard = new Scoreboard();
 
