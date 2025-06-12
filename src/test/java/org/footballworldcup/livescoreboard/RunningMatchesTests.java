@@ -16,7 +16,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void afterAddingOneMatch_getShouldReturnIt_withZeroScores() throws ClashingTeamsException, BlankTeamNameException {
+    public void afterAddingOneMatch_getShouldReturnIt_withZeroScores()
+            throws ClashingTeamsException, BlankTeamNameException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -81,7 +82,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithHomeAlreadyPlayingAsHome_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
+    public void whenAddingMatchWithHomeAlreadyPlayingAsHome_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
@@ -97,7 +99,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithHomeAlreadyPlayingAsAway_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
+    public void whenAddingMatchWithHomeAlreadyPlayingAsAway_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
@@ -113,7 +116,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithAwayAlreadyPlayingAsHome_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
+    public void whenAddingMatchWithAwayAlreadyPlayingAsHome_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
@@ -128,7 +132,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithAwayAlreadyPlayingAsAway_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
+    public void whenAddingMatchWithAwayAlreadyPlayingAsAway_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
@@ -143,7 +148,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void afterUpdatingMatch_shouldHaveUpdatedScore() throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
+    public void afterUpdatingMatch_shouldHaveUpdatedScore()
+            throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -164,7 +170,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenUpdatingMatchWithLowerScoreForHome_shouldThrowException() throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
+    public void whenUpdatingMatchWithLowerScoreForHome_shouldThrowException()
+            throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -180,7 +187,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenUpdatingMatchWithLowerScoreForAway_shouldThrowException() throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
+    public void whenUpdatingMatchWithLowerScoreForAway_shouldThrowException()
+            throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -197,7 +205,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenUpdatingNonrunningMatch_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
+    public void whenUpdatingNonrunningMatch_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -234,7 +243,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void givenRunningMatch_finishMatchShouldReturnIt() throws MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
+    public void givenRunningMatch_finishMatchShouldReturnIt()
+            throws MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -248,7 +258,8 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void givenMatches_whenFinishingNonrunningMatch_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
+    public void givenMatches_whenFinishingNonrunningMatch_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -271,4 +282,5 @@ public class RunningMatchesTests {
         Assert.assertEquals(homeTeam2, matches.get(1).getHomeTeam());
         Assert.assertEquals(awayTeam, matches.get(1).getAwayTeam());
     }
+
 }

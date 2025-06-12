@@ -44,7 +44,7 @@ public class Match {
         return this.homeTeam.equals(homeTeam) && this.awayTeam.equals(awayTeam);
     }
 
-    boolean isHigerScore(int homeTeamScore, int awayTeamScore) {
+    boolean isHigherScore(int homeTeamScore, int awayTeamScore) {
         return this.homeTeamScore < homeTeamScore && this.awayTeamScore < awayTeamScore;
     }
 
