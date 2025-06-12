@@ -18,4 +18,9 @@ public class Scoreboard {
     public void start(String homeTeam, String awayTeam) {
         matches.add(new Match());
     }
+
+    public void finish(String homeTeam, String awayTeam) {
+
+    }
+
 }
