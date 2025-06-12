@@ -12,20 +12,20 @@ import java.util.stream.Stream;
 public class Scoreboard {
 
     private final RunningMatches runningMatches;
-    private final List<Match> matches;
+    private final List<Match> finishedMatches;
     private final MatchesComparator matchesComparator;
     private int nextMatchNo;
 
     Scoreboard() {
         this.runningMatches = new RunningMatches();
-        this.matches = new LinkedList<>();
+        this.finishedMatches = new LinkedList<>();
         this.matchesComparator = new MatchesComparator();
         this.nextMatchNo = 0;
     }
 
-    public List<Match> getSummary() {
+    List<Match> getMatches() {
         return Stream
-                .concat(runningMatches.getMatches().stream(), matches.stream())
+                .concat(runningMatches.getMatches().stream(), finishedMatches.stream())
                 .sorted(matchesComparator)
                 .toList();
     }
@@ -37,7 +37,7 @@ public class Scoreboard {
     }
 
     public void finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
-        matches.add(runningMatches.finish(homeTeam, awayTeam));
+        finishedMatches.add(runningMatches.finish(homeTeam, awayTeam));
     }
 
     public void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) 

@@ -16,7 +16,7 @@ public class ScoreboardTests {
     @Test
     public void whenNoMatches_summaryShouldBeEmpty() {
         Scoreboard scoreboard = new Scoreboard();
-        Assert.assertTrue(scoreboard.getSummary().isEmpty());
+        Assert.assertTrue(scoreboard.getMatches().isEmpty());
     }
 
     @Test
@@ -27,7 +27,7 @@ public class ScoreboardTests {
 
         scoreboard.start(homeTeam, awayTeam);
 
-        List<Match> summary = scoreboard.getSummary();
+        List<Match> summary = scoreboard.getMatches();
         Assert.assertEquals(1, summary.size());
         Assert.assertEquals(homeTeam, summary.getFirst().getHomeTeam());
         Assert.assertEquals(awayTeam, summary.getFirst().getAwayTeam());
@@ -43,7 +43,7 @@ public class ScoreboardTests {
         scoreboard.start(homeTeam, awayTeam);
         scoreboard.finish(homeTeam, awayTeam);
 
-        List<Match> summary = scoreboard.getSummary();
+        List<Match> summary = scoreboard.getMatches();
         Assert.assertEquals(1, summary.size());
         Assert.assertEquals(homeTeam, summary.getFirst().getHomeTeam());
         Assert.assertEquals(awayTeam, summary.getFirst().getAwayTeam());
@@ -61,7 +61,7 @@ public class ScoreboardTests {
         scoreboard.start(homeTeam, awayTeam);
         scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
 
-        Match match = scoreboard.getSummary().getFirst();
+        Match match = scoreboard.getMatches().getFirst();
         Assert.assertEquals(homeTeamScore, match.getHomeTeamScore());
         Assert.assertEquals(awayTeamScore, match.getAwayTeamScore());
     }
@@ -91,7 +91,7 @@ public class ScoreboardTests {
         });
 
         // check if summary has both matches
-        List<Match> matches = scoreboard.getSummary();
+        List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(2, matches.size());
 
         // no update, so all scores should be 0
@@ -143,7 +143,7 @@ public class ScoreboardTests {
         scoreboard.finish(homeTeam4, awayTeam4);
 
         // check order
-        List<Match> matches = scoreboard.getSummary();
+        List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(homeTeam2, matches.getFirst().getHomeTeam());
         Assert.assertEquals(awayTeam2, matches.getFirst().getAwayTeam());
 
@@ -190,7 +190,7 @@ public class ScoreboardTests {
         scoreboard.start(homeTeam2, awayTeam2);
 
         // check order
-        List<Match> matches = scoreboard.getSummary();
+        List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(homeTeam2, matches.getFirst().getHomeTeam());
         Assert.assertEquals(awayTeam2, matches.getFirst().getAwayTeam());
 
