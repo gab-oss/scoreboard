@@ -23,8 +23,8 @@ public class Scoreboard {
         runningMatches.add(homeTeam, awayTeam);
     }
 
-    public void finish(String homeTeam, String awayTeam) {
-
+    public void finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
+        matches.add(runningMatches.finish(homeTeam, awayTeam));
     }
 
     public void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) 

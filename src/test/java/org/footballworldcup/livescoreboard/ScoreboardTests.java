@@ -24,7 +24,8 @@ public class ScoreboardTests {
     }
 
     @Test
-    public void givenFinishedMatch_summaryShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
+    public void givenFinishedMatch_summaryShouldHaveIt()
+            throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
         Scoreboard scoreboard = new Scoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -63,11 +64,26 @@ public class ScoreboardTests {
         int awayTeamScore = 2;
 
         scoreboard.start(homeTeam, awayTeam);
+
+        // start another match to make sure it isn't changed/removed by finish
+        String homeTeam2 = "Home2";
+        String awayTeam2 = "Away2";
+        scoreboard.start(homeTeam2, awayTeam2);
+
         scoreboard.finish(homeTeam, awayTeam);
 
         assertThrows(MatchNotFoundException.class, () -> {
             scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         });
+
+        List<Match> matches = scoreboard.getSummary();
+        Assert.assertEquals(2, matches.size());
+
+        // no update, so all scores should be 0
+        Assert.assertEquals(0, matches.getFirst().getHomeTeamScore());
+        Assert.assertEquals(0, matches.getFirst().getAwayTeamScore());
+        Assert.assertEquals(0, matches.getLast().getHomeTeamScore());
+        Assert.assertEquals(0, matches.getLast().getAwayTeamScore());
     }
 
 }
