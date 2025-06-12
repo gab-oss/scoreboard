@@ -271,5 +271,4 @@ public class RunningMatchesTests {
         Assert.assertEquals(homeTeam2, matches.get(1).getHomeTeam());
         Assert.assertEquals(awayTeam, matches.get(1).getAwayTeam());
     }
-
 }

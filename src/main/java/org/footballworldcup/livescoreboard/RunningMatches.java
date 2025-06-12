@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class RunningMatches {
+class RunningMatches {
 
-    List<Match> matches;
+    private final List<Match> matches;
 
     RunningMatches() {
         this.matches = new ArrayList<>();
+    }
+
+    List<Match> getMatches() {
+        return matches;
     }
 
     void add(String homeTeam, String awayTeam) throws ClashingTeamsException, BlankTeamNameException {
@@ -25,11 +29,7 @@ public class RunningMatches {
         matches.add(new Match(homeTeam, awayTeam));
     }
 
-    List<Match> getMatches() {
-        return matches;
-    }
-
-    public void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) throws LowerScoreException, MatchNotFoundException {
+    void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) throws LowerScoreException, MatchNotFoundException {
         for (Match match : matches) {
             if (match.getHomeTeam().equals(homeTeam) && match.getAwayTeam().equals(awayTeam) ) {
                 if (match.getHomeTeamScore() > homeTeamScore
@@ -42,7 +42,7 @@ public class RunningMatches {
         throw new MatchNotFoundException("");
     }
 
-    public Match finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
+    Match finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
         ListIterator<Match> iter = matches.listIterator();
         while(iter.hasNext()){
             Match match = iter.next();
@@ -53,4 +53,5 @@ public class RunningMatches {
         }
         throw new MatchNotFoundException("");
     }
+
 }
