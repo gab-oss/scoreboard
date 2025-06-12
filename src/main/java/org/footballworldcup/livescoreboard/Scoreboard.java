@@ -9,11 +9,13 @@ public class Scoreboard {
     private RunningMatches runningMatches;
     private List<Match> matches; // todo change name, final
     private MatchesComparator matchesComparator;
+    private int nextMatchNo;
 
     Scoreboard() {
         this.runningMatches = new RunningMatches();
         this.matches = new LinkedList<>();
         this.matchesComparator = new MatchesComparator();
+        this.nextMatchNo = 0;
     }
 
     public List<Match> getSummary() {
@@ -25,7 +27,8 @@ public class Scoreboard {
 
     public void start(String homeTeam, String awayTeam)
             throws ClashingTeamsException, BlankTeamNameException {
-        runningMatches.add(homeTeam, awayTeam);
+        runningMatches.add(homeTeam, awayTeam, nextMatchNo);
+        nextMatchNo += 1;
     }
 
     public void finish(String homeTeam, String awayTeam) throws MatchNotFoundException {

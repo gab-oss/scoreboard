@@ -6,6 +6,7 @@ public class Match {
     private String awayTeam;
     private int homeTeamScore;
     private int awayTeamScore;
+    private int orderNo;
 
     Match () {}
 
@@ -14,6 +15,14 @@ public class Match {
         this.awayTeam = awayTeam;
         this.homeTeamScore = 0;
         this.awayTeamScore = 0;
+    }
+
+    Match(String homeTeam, String awayTeam, int orderNo) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.homeTeamScore = 0;
+        this.awayTeamScore = 0;
+        this.orderNo = orderNo;
     }
 
     String getHomeTeam() {
@@ -38,6 +47,10 @@ public class Match {
 
     void setAwayTeamScore(int awayTeamScore) {
         this.awayTeamScore = awayTeamScore;
+    }
+
+    public int getOrderNo() {
+        return orderNo;
     }
 
     boolean isMatchOfTeams(String homeTeam, String awayTeam) {

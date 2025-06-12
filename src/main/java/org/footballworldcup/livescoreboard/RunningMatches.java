@@ -24,6 +24,14 @@ class RunningMatches {
         matches.add(new Match(homeTeam, awayTeam));
     }
 
+    void add(String homeTeam, String awayTeam, int orderNo) throws ClashingTeamsException, BlankTeamNameException {
+        if (homeTeam == null || homeTeam.isBlank()) throw new BlankTeamNameException("Home team name is empty");
+        if (awayTeam == null || awayTeam.isBlank()) throw new BlankTeamNameException("Away team name is empty");
+        if (homeTeam.equals(awayTeam)) throw new ClashingTeamsException("A team can't play a match against itself");
+        if (!areTeamsFreeToPlay(homeTeam, awayTeam)) throw new ClashingTeamsException("Team already playing");
+        matches.add(new Match(homeTeam, awayTeam, orderNo));
+    }
+
     void update(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore)
             throws LowerScoreException, MatchNotFoundException {
         for (Match match : matches) {
