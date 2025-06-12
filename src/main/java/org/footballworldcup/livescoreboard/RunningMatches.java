@@ -12,7 +12,8 @@ public class RunningMatches {
     }
 
     void add(String homeTeam, String awayTeam) throws ClashingTeamsException, BlankTeamNameException {
-        if (homeTeam.isBlank() || awayTeam.isBlank()) throw new BlankTeamNameException("");
+        if ( homeTeam == null || homeTeam.isBlank()
+                || awayTeam == null || awayTeam.isBlank()) throw new BlankTeamNameException("");
         if (homeTeam.equals(awayTeam)) throw new ClashingTeamsException("");
         for (Match match : matches) {
             if (match.getHomeTeam().equals(homeTeam)
