@@ -219,7 +219,7 @@ public class RunningMatchesTests {
         Assert.assertEquals(0, matches.get(0).getHomeTeamScore());
         Assert.assertEquals(0, matches.get(0).getAwayTeamScore());
         Assert.assertEquals(0, matches.get(1).getHomeTeamScore());
-        Assert.assertEquals(0, matches.get(1).getHomeTeamScore());
+        Assert.assertEquals(0, matches.get(1).getHomeTeamScore()); // to fix
     }
 
     @Test
@@ -245,6 +245,31 @@ public class RunningMatchesTests {
         Assert.assertTrue(runningMatches.getMatches().isEmpty());
         Assert.assertEquals(homeTeam, match.getHomeTeam());
         Assert.assertEquals(awayTeam, match.getAwayTeam());
+    }
+
+    @Test
+    public void givenMatches_whenFinishingNonrunningMatch_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        // matches of teams with same names to check if they won't be removed
+        String homeTeam2 = "Home2";
+        String awayTeam2 = "Away2";
+
+        runningMatches.add(homeTeam, awayTeam2);
+        runningMatches.add(homeTeam2, awayTeam);
+
+        assertThrows(MatchNotFoundException.class, () -> {
+            runningMatches.finish(homeTeam, awayTeam);
+        });
+
+        List<Match> matches = runningMatches.getMatches();
+        Assert.assertEquals(2, matches.size());
+        Assert.assertEquals(homeTeam, matches.get(0).getHomeTeam());
+        Assert.assertEquals(awayTeam2, matches.get(0).getAwayTeam());
+        Assert.assertEquals(homeTeam2, matches.get(1).getHomeTeam());
+        Assert.assertEquals(awayTeam, matches.get(1).getAwayTeam());
     }
 
 }
