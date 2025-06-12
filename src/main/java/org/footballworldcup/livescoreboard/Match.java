@@ -10,13 +10,6 @@ public class Match {
 
     Match () {}
 
-    Match(String homeTeam, String awayTeam) {
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
-        this.homeTeamScore = 0;
-        this.awayTeamScore = 0;
-    }
-
     Match(String homeTeam, String awayTeam, int orderNo) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
