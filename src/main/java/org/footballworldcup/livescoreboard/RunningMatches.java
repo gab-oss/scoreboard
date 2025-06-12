@@ -1,5 +1,10 @@
 package org.footballworldcup.livescoreboard;
 
+import org.footballworldcup.livescoreboard.exceptions.BlankTeamNameException;
+import org.footballworldcup.livescoreboard.exceptions.ClashingTeamsException;
+import org.footballworldcup.livescoreboard.exceptions.LowerScoreException;
+import org.footballworldcup.livescoreboard.exceptions.MatchNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;

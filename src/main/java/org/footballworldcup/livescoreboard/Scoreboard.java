@@ -1,14 +1,19 @@
 package org.footballworldcup.livescoreboard;
 
+import org.footballworldcup.livescoreboard.exceptions.BlankTeamNameException;
+import org.footballworldcup.livescoreboard.exceptions.ClashingTeamsException;
+import org.footballworldcup.livescoreboard.exceptions.LowerScoreException;
+import org.footballworldcup.livescoreboard.exceptions.MatchNotFoundException;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
 public class Scoreboard {
 
-    private RunningMatches runningMatches;
-    private List<Match> matches; // todo change name, final
-    private MatchesComparator matchesComparator;
+    private final RunningMatches runningMatches;
+    private final List<Match> matches;
+    private final MatchesComparator matchesComparator;
     private int nextMatchNo;
 
     Scoreboard() {

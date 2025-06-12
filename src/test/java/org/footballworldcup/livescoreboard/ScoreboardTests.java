@@ -1,5 +1,9 @@
 package org.footballworldcup.livescoreboard;
 
+import org.footballworldcup.livescoreboard.exceptions.BlankTeamNameException;
+import org.footballworldcup.livescoreboard.exceptions.ClashingTeamsException;
+import org.footballworldcup.livescoreboard.exceptions.LowerScoreException;
+import org.footballworldcup.livescoreboard.exceptions.MatchNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -154,7 +158,7 @@ public class ScoreboardTests {
     }
 
     @Test
-    public void givenMatchesWithSameScores_summaryShouldHaveThemOrdered() // todo ordered by what
+    public void givenMatchesWithSameScores_summaryShouldHaveThemOrdered()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
         Scoreboard scoreboard = new Scoreboard();
 
