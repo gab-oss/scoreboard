@@ -204,4 +204,10 @@ public class ScoreboardTests {
         Assert.assertEquals(awayTeam, matches.getLast().getAwayTeam());
     }
 
+    @Test
+    public void whenNoMatches_summaryShouldBeEmpty() {
+        Scoreboard scoreboard = new Scoreboard();
+        Assert.assertTrue(scoreboard.getSummary().isEmpty());
+    }
+
 }
