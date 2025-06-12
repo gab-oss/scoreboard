@@ -8,3 +8,4 @@
 - the summary will be a list of objects of a library-provided class, with the class having a nice toString() - providing an already formatted summary-string seems restrictive for the user
 - matches can be updated with any score higher than previous
 - a *running* match is uniquely identified by home and away team names
+- a team name can't be blank

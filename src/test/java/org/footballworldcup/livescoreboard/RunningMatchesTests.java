@@ -32,19 +32,19 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithNullHome_shouldThrowException() {
+    public void whenAddingMatchWithBlankHome_shouldThrowException() {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
-        assertThrows(NullTeamNameException.class, () -> {
+        assertThrows(BlankTeamNameException.class, () -> {
            runningMatches.add(homeTeam, null);
         });
     }
 
     @Test
-    public void whenAddingMatchWithNullAway_shouldThrowException() {
+    public void whenAddingMatchWithBlankAway_shouldThrowException() {
         RunningMatches runningMatches = new RunningMatches();
         String awayTeam = "Away";
-        assertThrows(NullTeamNameException.class, () -> {
+        assertThrows(BlankTeamNameException.class, () -> {
             runningMatches.add(null, awayTeam);
         });
     }
