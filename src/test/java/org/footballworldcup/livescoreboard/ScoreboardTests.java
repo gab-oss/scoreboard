@@ -153,5 +153,51 @@ public class ScoreboardTests {
         Assert.assertEquals(awayTeam, matches.getLast().getAwayTeam());
     }
 
+    @Test
+    public void givenMatchesWithSameScores_summaryShouldHaveThemOrdered() // todo ordered by what
+            throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
+        Scoreboard scoreboard = new Scoreboard();
+
+        // set-up:
+        // running: match1: added 1st, match2: added 4th
+        // finished: match3: added 2nd, match4: added 3rd
+        // expected order: match2, match4, match3, match1
+
+        // match 1
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        scoreboard.start(homeTeam, awayTeam);
+
+        // match 3
+        String homeTeam3 = "Home3";
+        String awayTeam3 = "Away3";
+        scoreboard.start(homeTeam3, awayTeam3);
+        scoreboard.finish(homeTeam3, awayTeam3);
+
+        // match 4
+        String homeTeam4 = "Home4";
+        String awayTeam4 = "Away4";
+        scoreboard.start(homeTeam4, awayTeam4);
+        scoreboard.finish(homeTeam4, awayTeam4);
+
+        // match 2
+        String homeTeam2 = "Home2";
+        String awayTeam2 = "Away2";
+        scoreboard.start(homeTeam2, awayTeam2);
+
+        // check order
+        List<Match> matches = scoreboard.getSummary();
+        Assert.assertEquals(homeTeam2, matches.getFirst().getHomeTeam());
+        Assert.assertEquals(awayTeam2, matches.getFirst().getAwayTeam());
+
+        Assert.assertEquals(homeTeam4, matches.get(1).getHomeTeam());
+        Assert.assertEquals(awayTeam4, matches.get(1).getAwayTeam());
+
+        Assert.assertEquals(homeTeam3, matches.get(2).getHomeTeam());
+        Assert.assertEquals(awayTeam3, matches.get(2).getAwayTeam());
+
+        Assert.assertEquals(homeTeam, matches.getLast().getHomeTeam());
+        Assert.assertEquals(awayTeam, matches.getLast().getAwayTeam());
+    }
 
 }
