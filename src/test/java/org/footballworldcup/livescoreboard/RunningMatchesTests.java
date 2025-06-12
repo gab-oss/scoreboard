@@ -277,9 +277,12 @@ public class RunningMatchesTests {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
-        assertThrows(MatchNotFoundException.class, () -> {
+        Exception exception = assertThrows(MatchNotFoundException.class, () -> {
             runningMatches.finish(homeTeam, awayTeam);
         });
+
+        String expectedMessage = "Match not found";
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -304,16 +307,18 @@ public class RunningMatchesTests {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
-        // matches of teams with same names to check if they won't be removed
+        // add matches of Home and Away with other teams to check if they won't be removed
         String homeTeam2 = "Home2";
         String awayTeam2 = "Away2";
-
         runningMatches.add(homeTeam, awayTeam2);
         runningMatches.add(homeTeam2, awayTeam);
 
-        assertThrows(MatchNotFoundException.class, () -> {
+        Exception exception = assertThrows(MatchNotFoundException.class, () -> {
             runningMatches.finish(homeTeam, awayTeam);
         });
+
+        String expectedMessage = "Match not found";
+        Assert.assertEquals(expectedMessage, exception.getMessage());
 
         List<Match> matches = runningMatches.getMatches();
         Assert.assertEquals(2, matches.size());

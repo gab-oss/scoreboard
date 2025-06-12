@@ -35,7 +35,7 @@ class RunningMatches {
                 return;
             }
         }
-        throw new MatchNotFoundException("");
+        throw new MatchNotFoundException("Match not found");
     }
 
     Match finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
