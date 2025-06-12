@@ -21,4 +21,17 @@ public class ScoreboardTests {
         Assert.assertEquals(1, summary.size());
     }
 
+    @Test
+    public void givenFinishedMatch_summaryShouldHaveIt() {
+        Scoreboard scoreboard = new Scoreboard();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        scoreboard.start("Home", "Away");
+        scoreboard.finish(homeTeam, awayTeam);
+
+        List<Match> summary = scoreboard.getSummary();
+        Assert.assertEquals(1, summary.size());
+    }
+
 }
