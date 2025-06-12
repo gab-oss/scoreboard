@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertThrows;
+
 public class ScoreboardTests {
 
     @Test
@@ -49,6 +51,23 @@ public class ScoreboardTests {
         Match match = scoreboard.getSummary().getFirst();
         Assert.assertEquals(homeTeamScore, match.getHomeTeamScore());
         Assert.assertEquals(awayTeamScore, match.getAwayTeamScore());
+    }
+
+    @Test
+    public void givenFinishedMatch_whenUpdating_shouldThrowError()
+            throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
+        Scoreboard scoreboard = new Scoreboard();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        int homeTeamScore = 1;
+        int awayTeamScore = 2;
+
+        scoreboard.start(homeTeam, awayTeam);
+        scoreboard.finish(homeTeam, awayTeam);
+
+        assertThrows(MatchNotFoundException.class, () -> {
+            scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
+        });
     }
 
 }
