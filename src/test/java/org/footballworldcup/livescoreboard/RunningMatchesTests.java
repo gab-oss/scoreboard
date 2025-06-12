@@ -233,5 +233,16 @@ public class RunningMatchesTests {
         });
     }
 
+    @Test
+    public void givenRunningMatch_finishMatchShouldReturnIt() {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        Match match = runningMatches.finish(homeTeam, awayTeam);
+        Assert.assertEquals(homeTeam, match.getHomeTeam());
+        Assert.assertEquals(awayTeam, match.getAwayTeam());
+    }
+
 
 }

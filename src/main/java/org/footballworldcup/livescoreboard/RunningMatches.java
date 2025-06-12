@@ -40,4 +40,8 @@ public class RunningMatches {
         }
         throw new MatchNotFoundException("");
     }
+
+    public void finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
+        throw new MatchNotFoundException("");
+    }
 }
