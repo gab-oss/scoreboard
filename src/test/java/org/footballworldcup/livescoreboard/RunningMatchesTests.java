@@ -209,12 +209,16 @@ public class RunningMatchesTests {
         int firstUpdateHomeScore = 1;
         int secondUpdateHomeScore = 0;
         int newAwayScore = 2;
+
         runningMatches.add(homeTeam, awayTeam);
         runningMatches.update(homeTeam, awayTeam, firstUpdateHomeScore, newAwayScore);
 
-        assertThrows(LowerScoreException.class, () -> {
+        Exception exception = assertThrows(LowerScoreException.class, () -> {
             runningMatches.update(homeTeam, awayTeam, secondUpdateHomeScore, newAwayScore);
         });
+
+        String expectedMessage = "Score can't be lowered";
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -230,9 +234,12 @@ public class RunningMatchesTests {
         runningMatches.add(homeTeam, awayTeam);
         runningMatches.update(homeTeam, awayTeam, newHomeScore, firstUpdateAwayScore);
 
-        assertThrows(LowerScoreException.class, () -> {
+        Exception exception = assertThrows(LowerScoreException.class, () -> {
             runningMatches.update(homeTeam, awayTeam, newHomeScore, secondUpdateAwayScore);
         });
+
+        String expectedMessage = "Score can't be lowered";
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
