@@ -32,6 +32,24 @@ public class RunningMatchesTests {
     }
 
     @Test
+    public void whenAddingMatchWithNullHome_shouldThrowException() {
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        assertThrows(NullTeamNameException.class, () -> {
+           runningMatches.add(homeTeam, null);
+        });
+    }
+
+    @Test
+    public void whenAddingMatchWithNullAway_shouldThrowException() {
+        RunningMatches runningMatches = new RunningMatches();
+        String awayTeam = "Away";
+        assertThrows(NullTeamNameException.class, () -> {
+            runningMatches.add(null, awayTeam);
+        });
+    }
+
+    @Test
     public void whenAddingMatchOfTeamAgainstItself_shouldThrowException() {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
