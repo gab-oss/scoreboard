@@ -10,13 +10,13 @@ import static org.junit.Assert.assertThrows;
 public class RunningMatchesTests {
 
     @Test
-    public void whenNoMatches_getShouldReturnEmptyList() {
+    public void givenNoMatches_getShouldReturnEmptyList() {
         RunningMatches runningMatches = new RunningMatches();
         Assert.assertTrue(runningMatches.getMatches().isEmpty());
     }
 
     @Test
-    public void whenMatchAddedWithDifferentTeams_getShouldReturnIt_withZeroScores() throws ClashingTeamsException {
+    public void afterAddingOneMatch_getShouldReturnIt_withZeroScores() throws ClashingTeamsException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -32,7 +32,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchAddedOfTeamAgainstItself_shouldThrowException() {
+    public void whenAddingMatchOfTeamAgainstItself_shouldThrowException() {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         assertThrows(ClashingTeamsException.class, () -> {
@@ -41,7 +41,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchAddedButHomeTeamAlreadyPlayingAsHome_shouldThrowException() throws ClashingTeamsException {
+    public void whenAddingMatchWithHomeAlreadyPlayingAsHome_shouldThrowException() throws ClashingTeamsException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
@@ -57,7 +57,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchAddedButHomeTeamAlreadyPlayingAsAway_shouldThrowException() throws ClashingTeamsException {
+    public void whenAddingMatchWithHomeAlreadyPlayingAsAway_shouldThrowException() throws ClashingTeamsException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
@@ -73,7 +73,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchAddedButAwayTeamAlreadyPlayingAsHome_shouldThrowException() throws ClashingTeamsException {
+    public void whenAddingMatchWithAwayAlreadyPlayingAsHome_shouldThrowException() throws ClashingTeamsException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
@@ -88,7 +88,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchAddedButAwayTeamAlreadyPlayingAsAway_shouldThrowException() throws ClashingTeamsException {
+    public void whenAddingMatchWithAwayAlreadyPlayingAsAway_shouldThrowException() throws ClashingTeamsException {
         // add a valid match with Home
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
@@ -103,7 +103,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchUpdatedAndExists_shouldHaveUpdatedScore() throws ClashingTeamsException, LowerScoreException {
+    public void afterUpdatingMatch_shouldHaveUpdatedScore() throws ClashingTeamsException, LowerScoreException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -124,7 +124,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchUpdatedWithLowerScoreForHome_shouldThrowException() throws ClashingTeamsException, LowerScoreException {
+    public void whenUpdatingMatchWithLowerScoreForHome_shouldThrowException() throws ClashingTeamsException, LowerScoreException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -140,7 +140,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenMatchUpdatedWithLowerScoreForAway_shouldThrowException() throws ClashingTeamsException, LowerScoreException {
+    public void whenUpdatingMatchWithLowerScoreForAway_shouldThrowException() throws ClashingTeamsException, LowerScoreException {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
