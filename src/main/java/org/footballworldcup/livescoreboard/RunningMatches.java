@@ -47,7 +47,7 @@ class RunningMatches {
                 return match;
             }
         }
-        throw new MatchNotFoundException("");
+        throw new MatchNotFoundException("Match not found");
     }
 
     private boolean areTeamsFreeToPlay(String homeTeam, String awayTeam) {
