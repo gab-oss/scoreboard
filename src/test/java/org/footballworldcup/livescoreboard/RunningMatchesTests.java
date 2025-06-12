@@ -37,9 +37,13 @@ public class RunningMatchesTests {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = " ";
         String awayTeam = "Away";
-        assertThrows(BlankTeamNameException.class, () -> {
-           runningMatches.add(homeTeam, awayTeam);
+        String expectedMessage = "Home team name is empty";
+
+        Exception exception = assertThrows(BlankTeamNameException.class, () -> {
+            runningMatches.add(homeTeam, awayTeam);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -47,9 +51,13 @@ public class RunningMatchesTests {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = " ";
-        assertThrows(BlankTeamNameException.class, () -> {
+        String expectedMessage = "Away team name is empty";
+
+        Exception exception = assertThrows(BlankTeamNameException.class, () -> {
             runningMatches.add(homeTeam, awayTeam);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -57,9 +65,13 @@ public class RunningMatchesTests {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = null;
         String awayTeam = "Away";
-        assertThrows(BlankTeamNameException.class, () -> {
+        String expectedMessage = "Home team name is empty";
+
+        Exception exception = assertThrows(BlankTeamNameException.class, () -> {
             runningMatches.add(homeTeam, awayTeam);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
@@ -67,9 +79,13 @@ public class RunningMatchesTests {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = null;
-        assertThrows(BlankTeamNameException.class, () -> {
+        String expectedMessage = "Away team name is empty";
+
+        Exception exception = assertThrows(BlankTeamNameException.class, () -> {
             runningMatches.add(homeTeam, awayTeam);
         });
+
+        Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test

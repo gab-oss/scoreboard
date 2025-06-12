@@ -5,4 +5,3 @@ public class BlankTeamNameException extends Exception {
         super(errorMessage);
     }
 }
-
