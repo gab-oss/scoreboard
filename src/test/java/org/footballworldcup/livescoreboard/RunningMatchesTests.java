@@ -201,6 +201,8 @@ public class RunningMatchesTests {
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
+        int newHomeTeamScore = 1;
+        int newAwayTeamScore = 2;
 
         // matches of teams with same names to check if they won't be updated
         String homeTeam2 = "Home2";
@@ -210,9 +212,14 @@ public class RunningMatchesTests {
         runningMatches.add(homeTeam2, awayTeam);
 
         assertThrows(MatchNotFoundException.class, () -> {
-            runningMatches.update(homeTeam, awayTeam, 0, 0);
+            runningMatches.update(homeTeam, awayTeam, newHomeTeamScore, newAwayTeamScore);
         });
 
+        List<Match> matches = runningMatches.getMatches();
+        Assert.assertEquals(0, matches.get(0).getHomeTeamScore());
+        Assert.assertEquals(0, matches.get(0).getAwayTeamScore());
+        Assert.assertEquals(0, matches.get(1).getHomeTeamScore());
+        Assert.assertEquals(0, matches.get(1).getHomeTeamScore());
     }
 
 
