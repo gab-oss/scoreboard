@@ -28,7 +28,7 @@ class RunningMatches {
             throws LowerScoreException, MatchNotFoundException {
         for (Match match : matches) {
             if (match.isMatchOfTeams(homeTeam, awayTeam)) {
-                if (!match.isHigherScore(homeTeamScore, awayTeamScore))
+                if (!match.isNotLowerScore(homeTeamScore, awayTeamScore))
                     throw new LowerScoreException("Score can't be lowered");
                 match.setHomeTeamScore(homeTeamScore);
                 match.setAwayTeamScore(awayTeamScore);
