@@ -105,80 +105,76 @@ public class RunningMatchesTests {
     @Test
     public void whenAddingMatchWithHomeAlreadyPlayingAsHome_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
-        // add a valid match with Home
+        // add a valid match
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam);
 
-        String expectedMessage = "Team already playing";
-
-        // add another match with Home
+        // add another match with the same "home"
         String awayTeam2 = "Away2";
         Exception exception = assertThrows(ClashingTeamsException.class, () -> {
             runningMatches.add(homeTeam, awayTeam2);
         });
 
-        Assert.assertEquals(expectedMessage, exception.getMessage());
-    }
-
-    @Test
-    public void whenAddingMatchWithHomeAlreadyPlayingAsAway_shouldThrowException()
-            throws ClashingTeamsException, BlankTeamNameException {
-        // add a valid match with Home
-        RunningMatches runningMatches = new RunningMatches();
-        String homeTeam = "Home";
-        String awayTeam = "Away";
-        runningMatches.add(homeTeam, awayTeam);
-
         String expectedMessage = "Team already playing";
-
-        // add another match with Home
-        String awayTeam2 = "Away2";
-        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(awayTeam2, homeTeam);
-        });
-
-        Assert.assertEquals(expectedMessage, exception.getMessage());
-    }
-
-    @Test
-    public void whenAddingMatchWithAwayAlreadyPlayingAsHome_shouldThrowException()
-            throws ClashingTeamsException, BlankTeamNameException {
-        // add a valid match with Home
-        RunningMatches runningMatches = new RunningMatches();
-        String homeTeam = "Home";
-        String awayTeam = "Away";
-        runningMatches.add(homeTeam, awayTeam);
-
-        String awayTeam2 = "Away2";
-
-        String expectedMessage = "Team already playing";
-
-        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(awayTeam, awayTeam2);
-        });
-
         Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
     public void whenAddingMatchWithAwayAlreadyPlayingAsAway_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
-        // add a valid match with Home
+        // add a valid match
         RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam);
 
-        String awayTeam2 = "Away2";
-
-        String expectedMessage = "Team already playing";
-
+        // add another match with the same "away"
+        String homeTeam2 = "Home2";
         Exception exception = assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(awayTeam2, awayTeam);
+            runningMatches.add(homeTeam2, awayTeam);
         });
 
+        String expectedMessage = "Team already playing";
+        Assert.assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    public void whenAddingMatchWithHomeAlreadyPlayingAsAway_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException {
+        // add a valid match
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        runningMatches.add(homeTeam, awayTeam);
+
+        // add another match with Away playing as "home"
+        String awayTeam2 = "Away2";
+        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
+            runningMatches.add(awayTeam, awayTeam2);
+        });
+
+        String expectedMessage = "Team already playing";
+        Assert.assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    public void whenAddingMatchWithAwayAlreadyPlayingAsHome_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException {
+        // add a valid match
+        RunningMatches runningMatches = new RunningMatches();
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        runningMatches.add(homeTeam, awayTeam);
+
+        // add another match with Home playing as "away"
+        String home2 = "Home2";
+        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
+            runningMatches.add(home2, homeTeam);
+        });
+
+        String expectedMessage = "Team already playing";
         Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
