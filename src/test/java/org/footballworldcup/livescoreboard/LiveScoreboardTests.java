@@ -29,8 +29,7 @@ public class LiveScoreboardTests {
 
         List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(1, matches.size());
-        Assert.assertEquals(homeTeam, matches.getFirst().getHomeTeam());
-        Assert.assertEquals(awayTeam, matches.getFirst().getAwayTeam());
+        assertMatchAsExpected(matches.getFirst(), homeTeam, awayTeam, 0, 0);
     }
 
     @Test
@@ -45,8 +44,7 @@ public class LiveScoreboardTests {
 
         List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(1, matches.size());
-        Assert.assertEquals(homeTeam, matches.getFirst().getHomeTeam());
-        Assert.assertEquals(awayTeam, matches.getFirst().getAwayTeam());
+        assertMatchAsExpected(matches.getFirst(), homeTeam, awayTeam, 0, 0);
     }
 
     @Test
@@ -62,8 +60,7 @@ public class LiveScoreboardTests {
         scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
 
         Match match = scoreboard.getMatches().getFirst();
-        Assert.assertEquals(homeTeamScore, match.getHomeTeamScore());
-        Assert.assertEquals(awayTeamScore, match.getAwayTeamScore());
+        assertMatchAsExpected(match, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
     }
 
     @Test
@@ -95,10 +92,9 @@ public class LiveScoreboardTests {
         Assert.assertEquals(2, matches.size());
 
         // no update, so all scores should be 0
-        Assert.assertEquals(0, matches.getFirst().getHomeTeamScore());
-        Assert.assertEquals(0, matches.getFirst().getAwayTeamScore());
-        Assert.assertEquals(0, matches.getLast().getHomeTeamScore());
-        Assert.assertEquals(0, matches.getLast().getAwayTeamScore());
+        // ordered by starting order
+        assertMatchAsExpected(matches.getFirst(), homeTeam2, awayTeam2, 0, 0);
+        assertMatchAsExpected(matches.getLast(), homeTeam, awayTeam, 0, 0);
     }
 
     @Test
@@ -144,17 +140,10 @@ public class LiveScoreboardTests {
 
         // check order
         List<Match> matches = scoreboard.getMatches();
-        Assert.assertEquals(homeTeam2, matches.getFirst().getHomeTeam());
-        Assert.assertEquals(awayTeam2, matches.getFirst().getAwayTeam());
-
-        Assert.assertEquals(homeTeam4, matches.get(1).getHomeTeam());
-        Assert.assertEquals(awayTeam4, matches.get(1).getAwayTeam());
-
-        Assert.assertEquals(homeTeam3, matches.get(2).getHomeTeam());
-        Assert.assertEquals(awayTeam3, matches.get(2).getAwayTeam());
-
-        Assert.assertEquals(homeTeam, matches.getLast().getHomeTeam());
-        Assert.assertEquals(awayTeam, matches.getLast().getAwayTeam());
+        assertTeamsAsExpected(matches.get(0), homeTeam2, awayTeam2);
+        assertTeamsAsExpected(matches.get(1), homeTeam4, awayTeam4);
+        assertTeamsAsExpected(matches.get(2), homeTeam3, awayTeam3);
+        assertTeamsAsExpected(matches.get(3), homeTeam, awayTeam);
     }
 
     @Test
@@ -191,25 +180,23 @@ public class LiveScoreboardTests {
 
         // check order
         List<Match> matches = scoreboard.getMatches();
-        Assert.assertEquals(homeTeam2, matches.getFirst().getHomeTeam());
-        Assert.assertEquals(awayTeam2, matches.getFirst().getAwayTeam());
-
-        Assert.assertEquals(homeTeam4, matches.get(1).getHomeTeam());
-        Assert.assertEquals(awayTeam4, matches.get(1).getAwayTeam());
-
-        Assert.assertEquals(homeTeam3, matches.get(2).getHomeTeam());
-        Assert.assertEquals(awayTeam3, matches.get(2).getAwayTeam());
-
-        Assert.assertEquals(homeTeam, matches.getLast().getHomeTeam());
-        Assert.assertEquals(awayTeam, matches.getLast().getAwayTeam());
+        assertTeamsAsExpected(matches.get(0), homeTeam2, awayTeam2);
+        assertTeamsAsExpected(matches.get(1), homeTeam4, awayTeam4);
+        assertTeamsAsExpected(matches.get(2), homeTeam3, awayTeam3);
+        assertTeamsAsExpected(matches.get(3), homeTeam, awayTeam);
     }
 
-    private static void assertMatchAsExpected(SummarizedMatch match, String homeTeam, String awayTeam,
+    private static void assertTeamsAsExpected(Match match, String homeTeam, String awayTeam) {
+        Assert.assertEquals(homeTeam, match.getHomeTeam());
+        Assert.assertEquals(awayTeam, match.getAwayTeam());
+    }
+
+    private static void assertMatchAsExpected(Match match, String homeTeam, String awayTeam,
                                               int homeTeamScore, int awayTeamScore) {
-        Assert.assertEquals(homeTeam, match.homeTeam());
-        Assert.assertEquals(awayTeam, match.awayTeam());
-        Assert.assertEquals(homeTeamScore, match.homeTeamScore());
-        Assert.assertEquals(awayTeamScore, match.awayTeamScore());
+        Assert.assertEquals(homeTeam, match.getHomeTeam());
+        Assert.assertEquals(awayTeam, match.getAwayTeam());
+        Assert.assertEquals(homeTeamScore, match.getHomeTeamScore());
+        Assert.assertEquals(awayTeamScore, match.getAwayTeamScore());
     }
 
     private static void startAndUpdate(Scoreboard scoreboard, String homeTeam, String awayTeam,

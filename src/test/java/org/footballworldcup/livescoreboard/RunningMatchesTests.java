@@ -5,6 +5,7 @@ import org.footballworldcup.livescoreboard.exceptions.ClashingTeamsException;
 import org.footballworldcup.livescoreboard.exceptions.LowerScoreException;
 import org.footballworldcup.livescoreboard.exceptions.MatchNotFoundException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,16 +14,21 @@ import static org.junit.Assert.assertThrows;
 
 public class RunningMatchesTests {
 
+    RunningMatches runningMatches;
+
+    @Before
+    public void initialize() {
+        this.runningMatches = new RunningMatches();
+    }
+
     @Test
     public void givenNoMatches_getShouldReturnEmptyList() { // todo make test names more consistent, add before+after
-        RunningMatches runningMatches = new RunningMatches();
         Assert.assertTrue(runningMatches.getMatches().isEmpty());
     }
 
     @Test
     public void afterAddingOneMatch_getShouldReturnIt_withZeroScores()
             throws ClashingTeamsException, BlankTeamNameException {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -31,15 +37,11 @@ public class RunningMatchesTests {
         Match match = matches.getFirst();
 
         Assert.assertEquals(1, matches.size());
-        Assert.assertEquals(homeTeam, match.getHomeTeam());
-        Assert.assertEquals(awayTeam, match.getAwayTeam());
-        Assert.assertEquals(0, match.getHomeTeamScore());
-        Assert.assertEquals(0, match.getAwayTeamScore());
+        assertMatchAsExpected(match, homeTeam, awayTeam, 0, 0);
     }
 
     @Test
     public void whenAddingMatchWithBlankHome_shouldThrowException() {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = " ";
         String awayTeam = "Away";
         String expectedMessage = "Home team name is empty";
@@ -53,7 +55,6 @@ public class RunningMatchesTests {
 
     @Test
     public void whenAddingMatchWithBlankAway_shouldThrowException() {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = " ";
         String expectedMessage = "Away team name is empty";
@@ -67,7 +68,6 @@ public class RunningMatchesTests {
 
     @Test
     public void whenAddingMatchWithNullHome_shouldThrowException() {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = null;
         String awayTeam = "Away";
         String expectedMessage = "Home team name is empty";
@@ -81,7 +81,6 @@ public class RunningMatchesTests {
 
     @Test
     public void whenAddingMatchWithNullAway_shouldThrowException() {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = null;
         String expectedMessage = "Away team name is empty";
@@ -95,7 +94,6 @@ public class RunningMatchesTests {
 
     @Test
     public void whenAddingMatchOfTeamAgainstItself_shouldThrowException() {
-        RunningMatches runningMatches = new RunningMatches();
         String team = "Team";
         String expectedMessage = "A team can't play a match against itself";
 
@@ -110,7 +108,6 @@ public class RunningMatchesTests {
     public void whenAddingMatchWithHomeAlreadyPlayingAsHome_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam, 0);
@@ -129,7 +126,6 @@ public class RunningMatchesTests {
     public void whenAddingMatchWithAwayAlreadyPlayingAsAway_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam, 0);
@@ -148,7 +144,6 @@ public class RunningMatchesTests {
     public void whenAddingMatchWithHomeAlreadyPlayingAsAway_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam, 0);
@@ -167,7 +162,6 @@ public class RunningMatchesTests {
     public void whenAddingMatchWithAwayAlreadyPlayingAsHome_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         runningMatches.add(homeTeam, awayTeam, 0);
@@ -185,7 +179,6 @@ public class RunningMatchesTests {
     @Test
     public void afterUpdatingMatch_shouldHaveUpdatedScore()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int newHomeScore = 1;
@@ -198,16 +191,13 @@ public class RunningMatchesTests {
         Match match = matches.getFirst();
 
         Assert.assertEquals(1, matches.size());
-        Assert.assertEquals(homeTeam, match.getHomeTeam());
-        Assert.assertEquals(awayTeam, match.getAwayTeam());
-        Assert.assertEquals(newHomeScore, match.getHomeTeamScore());
-        Assert.assertEquals(newAwayScore, match.getAwayTeamScore());
+
+        assertMatchAsExpected(match, homeTeam, awayTeam, newHomeScore, newAwayScore);
     }
 
     @Test
     public void whenUpdatingMatchWithSameScore_shouldHaveSameScore()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int newHomeScore = 0;
@@ -219,17 +209,14 @@ public class RunningMatchesTests {
         List<Match> matches = runningMatches.getMatches();
         Match match = matches.getFirst();
 
+
         Assert.assertEquals(1, matches.size());
-        Assert.assertEquals(homeTeam, match.getHomeTeam());
-        Assert.assertEquals(awayTeam, match.getAwayTeam());
-        Assert.assertEquals(newHomeScore, match.getHomeTeamScore());
-        Assert.assertEquals(newAwayScore, match.getAwayTeamScore());
+        assertMatchAsExpected(match, homeTeam, awayTeam, newHomeScore, newAwayScore);
     }
 
     @Test
     public void whenUpdatingMatchWithLowerScoreForHome_shouldThrowException()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int firstUpdateHomeScore = 1;
@@ -250,7 +237,6 @@ public class RunningMatchesTests {
     @Test
     public void whenUpdatingMatchWithLowerScoreForAway_shouldThrowException()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int newHomeScore = 2;
@@ -271,7 +257,6 @@ public class RunningMatchesTests {
     @Test
     public void whenUpdatingNonrunningMatch_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int newHomeTeamScore = 1;
@@ -291,15 +276,12 @@ public class RunningMatchesTests {
         Assert.assertEquals(expectedMessage, exception.getMessage());
 
         List<Match> matches = runningMatches.getMatches();
-        Assert.assertEquals(0, matches.get(0).getHomeTeamScore());
-        Assert.assertEquals(0, matches.get(0).getAwayTeamScore());
-        Assert.assertEquals(0, matches.get(1).getHomeTeamScore());
-        Assert.assertEquals(0, matches.get(1).getAwayTeamScore());
+        assertMatchAsExpected(matches.get(0), homeTeam, awayTeam2, 0, 0);
+        assertMatchAsExpected(matches.get(1), homeTeam2, awayTeam, 0, 0);
     }
 
     @Test
     public void givenNoMatches_whenFinishingMatch_throwException() {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -314,7 +296,6 @@ public class RunningMatchesTests {
     @Test
     public void givenRunningMatch_finishMatchShouldReturnIt()
             throws MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -322,14 +303,12 @@ public class RunningMatchesTests {
 
         Match match = runningMatches.finish(homeTeam, awayTeam);
         Assert.assertTrue(runningMatches.getMatches().isEmpty());
-        Assert.assertEquals(homeTeam, match.getHomeTeam());
-        Assert.assertEquals(awayTeam, match.getAwayTeam());
+        assertMatchAsExpected(match, homeTeam, awayTeam, 0, 0);
     }
 
     @Test
     public void givenMatches_whenFinishingNonrunningMatch_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
-        RunningMatches runningMatches = new RunningMatches();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -348,10 +327,16 @@ public class RunningMatchesTests {
 
         List<Match> matches = runningMatches.getMatches();
         Assert.assertEquals(2, matches.size());
-        Assert.assertEquals(homeTeam, matches.get(0).getHomeTeam());
-        Assert.assertEquals(awayTeam2, matches.get(0).getAwayTeam());
-        Assert.assertEquals(homeTeam2, matches.get(1).getHomeTeam());
-        Assert.assertEquals(awayTeam, matches.get(1).getAwayTeam());
+        assertMatchAsExpected(matches.get(0), homeTeam, awayTeam2, 0, 0);
+        assertMatchAsExpected(matches.get(1), homeTeam2, awayTeam, 0, 0);
+    }
+
+    private static void assertMatchAsExpected(Match match, String homeTeam, String awayTeam,
+                                              int homeTeamScore, int awayTeamScore) {
+        Assert.assertEquals(homeTeam, match.getHomeTeam());
+        Assert.assertEquals(awayTeam, match.getAwayTeam());
+        Assert.assertEquals(homeTeamScore, match.getHomeTeamScore());
+        Assert.assertEquals(awayTeamScore, match.getAwayTeamScore());
     }
 
 }
