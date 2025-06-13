@@ -5,6 +5,7 @@ import org.footballworldcup.livescoreboard.exceptions.ClashingTeamsException;
 import org.footballworldcup.livescoreboard.exceptions.LowerScoreException;
 import org.footballworldcup.livescoreboard.exceptions.MatchNotFoundException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,15 +14,20 @@ import static org.junit.Assert.assertThrows;
 
 public class LiveScoreboardTests {
 
+    LiveScoreboard scoreboard;
+
+    @Before
+    public void initialize() {
+        this.scoreboard = new LiveScoreboard();
+    }
+
     @Test
     public void whenNoMatches_matchesShouldBeEmpty() {
-        LiveScoreboard scoreboard = new LiveScoreboard();
         Assert.assertTrue(scoreboard.getMatches().isEmpty());
     }
 
     @Test
     public void afterStartingMatch_matchesShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
-        LiveScoreboard scoreboard = new LiveScoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -35,7 +41,6 @@ public class LiveScoreboardTests {
     @Test
     public void givenFinishedMatch_matchesShouldHaveIt()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
-        LiveScoreboard scoreboard = new LiveScoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -50,7 +55,6 @@ public class LiveScoreboardTests {
     @Test
     public void givenStartedMatch_afterUpdate_matchesShouldHaveUpdatedScore()
             throws LowerScoreException, MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
-        LiveScoreboard scoreboard = new LiveScoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int homeTeamScore = 1;
@@ -66,7 +70,6 @@ public class LiveScoreboardTests {
     @Test
     public void givenFinishedMatch_whenUpdating_shouldThrowError()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
-        LiveScoreboard scoreboard = new LiveScoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int homeTeamScore = 1;
@@ -100,8 +103,6 @@ public class LiveScoreboardTests {
     @Test
     public void givenMatchesWithDifferentScores_matchesShouldHaveThemOrdered()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
-        LiveScoreboard scoreboard = new LiveScoreboard();
-
         // set-up:
         // running: match1: total score 0, match2: total score 3
         // finished: match3: total score 1, match4: total score 2
@@ -149,8 +150,6 @@ public class LiveScoreboardTests {
     @Test
     public void givenMatchesWithSameScores_matchesShouldHaveThemOrdered()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
-        LiveScoreboard scoreboard = new LiveScoreboard();
-
         // set-up:
         // running: match1: added 1st, match2: added 4th
         // finished: match3: added 2nd, match4: added 3rd
@@ -197,18 +196,6 @@ public class LiveScoreboardTests {
         Assert.assertEquals(awayTeam, match.getAwayTeam());
         Assert.assertEquals(homeTeamScore, match.getHomeTeamScore());
         Assert.assertEquals(awayTeamScore, match.getAwayTeamScore());
-    }
-
-    private static void startAndUpdate(Scoreboard scoreboard, String homeTeam, String awayTeam,
-                                       int homeTeamScore, int awayTeamScore) {
-        scoreboard.start(homeTeam, awayTeam);
-        scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
-    }
-
-    private static void startUpdateAndFinish(Scoreboard scoreboard, String homeTeam, String awayTeam,
-                                             int homeTeamScore, int awayTeamScore) {
-        startAndUpdate(scoreboard, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
-        scoreboard.finish(homeTeam, awayTeam);
     }
 
 }
