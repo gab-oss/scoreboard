@@ -43,7 +43,7 @@ public class LiveScoreboard implements Scoreboard {
 
     @Override
     public void finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
-        finishedMatches.add(runningMatches.finish(homeTeam, awayTeam));
+        runningMatches.finish(homeTeam, awayTeam);
     }
 
     List<Match> getMatches() {

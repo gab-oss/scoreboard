@@ -43,13 +43,13 @@ class RunningMatches {
         throw new MatchNotFoundException("Match not found");
     }
 
-    Match finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
+    void finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
         ListIterator<Match> matchIter = matches.listIterator();
         while(matchIter.hasNext()){
             Match match = matchIter.next();
             if(match.isMatchOfTeams(homeTeam, awayTeam)){
                 matchIter.remove();
-                return match;
+                return;
             }
         }
         throw new MatchNotFoundException("Match not found");
