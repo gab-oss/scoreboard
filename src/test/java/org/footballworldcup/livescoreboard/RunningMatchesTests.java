@@ -22,7 +22,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void givenNoMatches_getShouldReturnEmptyList() { // todo make test names more consistent, add before+after
+    public void givenNoMatches_getShouldReturnEmptyList() {
         Assert.assertTrue(runningMatches.getMatches().isEmpty());
     }
 
