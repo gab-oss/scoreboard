@@ -15,13 +15,13 @@ public class ScoreboardTests {
 
     @Test
     public void whenNoMatches_matchesShouldBeEmpty() {
-        Scoreboard scoreboard = new Scoreboard();
+        LiveScoreboard scoreboard = new LiveScoreboard();
         Assert.assertTrue(scoreboard.getMatches().isEmpty());
     }
 
     @Test
     public void afterStartingMatch_matchesShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
-        Scoreboard scoreboard = new Scoreboard();
+        LiveScoreboard scoreboard = new LiveScoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -36,7 +36,7 @@ public class ScoreboardTests {
     @Test
     public void givenFinishedMatch_matchesShouldHaveIt()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
-        Scoreboard scoreboard = new Scoreboard();
+        LiveScoreboard scoreboard = new LiveScoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -52,7 +52,7 @@ public class ScoreboardTests {
     @Test
     public void givenStartedMatch_afterUpdate_matchesShouldHaveUpdatedScore()
             throws LowerScoreException, MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
-        Scoreboard scoreboard = new Scoreboard();
+        LiveScoreboard scoreboard = new LiveScoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int homeTeamScore = 1;
@@ -69,7 +69,7 @@ public class ScoreboardTests {
     @Test
     public void givenFinishedMatch_whenUpdating_shouldThrowError()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
-        Scoreboard scoreboard = new Scoreboard();
+        LiveScoreboard scoreboard = new LiveScoreboard();
         String homeTeam = "Home";
         String awayTeam = "Away";
         int homeTeamScore = 1;
@@ -104,7 +104,7 @@ public class ScoreboardTests {
     @Test
     public void givenMatchesWithDifferentScores_matchesShouldHaveThemOrdered()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
-        Scoreboard scoreboard = new Scoreboard();
+        LiveScoreboard scoreboard = new LiveScoreboard();
 
         // set-up:
         // running: match1: total score 0, match2: total score 3
@@ -160,7 +160,7 @@ public class ScoreboardTests {
     @Test
     public void givenMatchesWithSameScores_matchesShouldHaveThemOrdered()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
-        Scoreboard scoreboard = new Scoreboard();
+        LiveScoreboard scoreboard = new LiveScoreboard();
 
         // set-up:
         // running: match1: added 1st, match2: added 4th
@@ -206,13 +206,13 @@ public class ScoreboardTests {
 
     @Test
     public void whenNoMatches_summaryShouldBeEmpty() {
-        Scoreboard scoreboard = new Scoreboard();
+        Scoreboard scoreboard = new LiveScoreboard();
         Assert.assertTrue(scoreboard.getSummary().isEmpty());
     }
 
     @Test
     public void givenMatches_summaryShouldHaveThemOrdered() {
-        Scoreboard scoreboard = new Scoreboard();
+        Scoreboard scoreboard = new LiveScoreboard();
 
         // set-up (running unless otherwise stated):
         // Mexico - Canada: 0 – 5 - finished

@@ -1,14 +1,12 @@
 package org.footballworldcup.livescoreboard;
 
-public class Match {
+class Match {
 
-    private String homeTeam;
-    private String awayTeam;
+    private final String homeTeam;
+    private final String awayTeam;
     private int homeTeamScore;
     private int awayTeamScore;
-    private int orderNo;
-
-    Match () {}
+    private final int orderNo;
 
     Match(String homeTeam, String awayTeam, int orderNo) {
         this.homeTeam = homeTeam;
@@ -42,7 +40,7 @@ public class Match {
         this.awayTeamScore = awayTeamScore;
     }
 
-    public int getOrderNo() {
+    int getOrderNo() {
         return orderNo;
     }
 
