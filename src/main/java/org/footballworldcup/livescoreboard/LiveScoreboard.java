@@ -23,13 +23,6 @@ public class LiveScoreboard implements Scoreboard {
         this.nextMatchNo = 0;
     }
 
-    List<Match> getMatches() { // todo move
-        return Stream
-                .concat(runningMatches.getMatches().stream(), finishedMatches.stream())
-                .sorted(matchesComparator)
-                .toList();
-    }
-
     @Override
     public List<SummarizedMatch> getSummary() {
         return summarize(getMatches());
@@ -51,6 +44,13 @@ public class LiveScoreboard implements Scoreboard {
     @Override
     public void finish(String homeTeam, String awayTeam) throws MatchNotFoundException {
         finishedMatches.add(runningMatches.finish(homeTeam, awayTeam));
+    }
+
+    List<Match> getMatches() {
+        return Stream
+                .concat(runningMatches.getMatches().stream(), finishedMatches.stream())
+                .sorted(matchesComparator)
+                .toList();
     }
 
     private List<SummarizedMatch> summarize(List<Match> matches) {
