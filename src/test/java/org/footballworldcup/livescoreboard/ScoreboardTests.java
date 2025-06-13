@@ -87,10 +87,4 @@ public class ScoreboardTests {
         scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
     }
 
-    private static void startUpdateAndFinish(Scoreboard scoreboard, String homeTeam, String awayTeam,
-                                             int homeTeamScore, int awayTeamScore) {
-        startAndUpdate(scoreboard, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
-        scoreboard.finish(homeTeam, awayTeam);
-    }
-
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public interface Scoreboard {
 
     /**
-     * Returns a summary of all matches, including both running and finished ones.
+     * Returns a summary of all ongoing matches.
      * Matches are ordered according to:
      * total score (descending),
      * order of addition (descending, if total score is equal).
@@ -44,7 +44,7 @@ public interface Scoreboard {
             throws LowerScoreException, MatchNotFoundException;
 
     /**
-     * Finishes an ongoing match, making it impossible to update.
+     * Finishes an ongoing match, removing it from the system.
      *
      * @param homeTeam the name of the home team
      * @param awayTeam the name of the away team
