@@ -41,12 +41,16 @@ public class LiveScoreboardTests {
     @Test
     public void finish_whenMatchWasRunning_shouldKeepItInMatches()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
+        // arrange
         String homeTeam = "Home";
         String awayTeam = "Away";
 
         scoreboard.start(homeTeam, awayTeam);
+
+        // act
         scoreboard.finish(homeTeam, awayTeam);
 
+        // assert
         List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(1, matches.size());
         assertMatchAsExpected(matches.getFirst(), homeTeam, awayTeam, 0, 0);
@@ -55,14 +59,18 @@ public class LiveScoreboardTests {
     @Test
     public void update_givenRunningMatch_shouldSetNewScore()
             throws LowerScoreException, MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
+        // arrange
         String homeTeam = "Home";
         String awayTeam = "Away";
         int homeTeamScore = 1;
         int awayTeamScore = 2;
 
         scoreboard.start(homeTeam, awayTeam);
+
+        // act
         scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
 
+        // assert
         Match match = scoreboard.getMatches().getFirst();
         assertMatchAsExpected(match, homeTeam, awayTeam, homeTeamScore, awayTeamScore);
     }
@@ -70,6 +78,7 @@ public class LiveScoreboardTests {
     @Test
     public void update_whenMatchFinished_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
+        // arrange
         String homeTeam = "Home";
         String awayTeam = "Away";
         int homeTeamScore = 1;
@@ -85,12 +94,13 @@ public class LiveScoreboardTests {
         // finish the first match
         scoreboard.finish(homeTeam, awayTeam);
 
-        // try to update the finished match
+        // act - try to update the finished match
         assertThrows(MatchNotFoundException.class, () -> {
             scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         });
 
-        // check if getMatches has both
+        // assert
+        // check if getMatches returns both matches
         List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(2, matches.size());
 
@@ -103,7 +113,7 @@ public class LiveScoreboardTests {
     @Test
     public void getMatches_givenMatchesWithDifferentTotalScores_shouldHaveThemOrderedByScore()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
-        // set-up:
+        // arrange:
         // running: match1: total score 0, match2: total score 3
         // finished: match3: total score 1, match4: total score 2
         // expected order: match2, match4, match3, match1
@@ -139,8 +149,10 @@ public class LiveScoreboardTests {
         scoreboard.update(homeTeam4, awayTeam4, newHome4TeamScore, newAway4TeamScore);
         scoreboard.finish(homeTeam4, awayTeam4);
 
-        // check order
+        // act
         List<Match> matches = scoreboard.getMatches();
+
+        // assert
         assertTeamsAsExpected(matches.get(0), homeTeam2, awayTeam2);
         assertTeamsAsExpected(matches.get(1), homeTeam4, awayTeam4);
         assertTeamsAsExpected(matches.get(2), homeTeam3, awayTeam3);
@@ -150,7 +162,7 @@ public class LiveScoreboardTests {
     @Test
     public void getMatches_givenMatchesWithSameScore_shouldHaveThemOrderedByStartingOrder()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
-        // set-up:
+        // arrange:
         // running: match1: added 1st, match2: added 4th
         // finished: match3: added 2nd, match4: added 3rd
         // expected order: match2, match4, match3, match1
@@ -177,8 +189,10 @@ public class LiveScoreboardTests {
         String awayTeam2 = "Away2";
         scoreboard.start(homeTeam2, awayTeam2);
 
-        // check order
+        // act
         List<Match> matches = scoreboard.getMatches();
+
+        // assert
         assertTeamsAsExpected(matches.get(0), homeTeam2, awayTeam2);
         assertTeamsAsExpected(matches.get(1), homeTeam4, awayTeam4);
         assertTeamsAsExpected(matches.get(2), homeTeam3, awayTeam3);

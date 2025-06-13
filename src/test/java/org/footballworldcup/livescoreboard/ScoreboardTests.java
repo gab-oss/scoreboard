@@ -18,7 +18,7 @@ public class ScoreboardTests {
     public void getSummary_whenMatchesGiven_shouldBeOrderedByTotalScoreAndStartingOrder() {
         Scoreboard scoreboard = new LiveScoreboard();
 
-        // set-up (running unless otherwise stated):
+        // arrange (running unless otherwise stated):
         // Mexico - Canada: 0 – 5 - finished
         // Spain - Brazil: 10 – 2 - finished
         // Germany - France: 2 – 2
@@ -62,7 +62,10 @@ public class ScoreboardTests {
         // Argentina 3 - Australia 1
         // Germany 2 - France 2
 
+        // act
         List<SummarizedMatch> matches = scoreboard.getSummary();
+
+        // assert
         assertMatchAsExpected(matches.get(0), uruguay, italy, uruguayScore, italyScore);
         assertMatchAsExpected(matches.get(1), spain, brazil, spainScore, brazilScore);
         assertMatchAsExpected(matches.get(2), mexico, canada, mexicoScore, canadaScore);
