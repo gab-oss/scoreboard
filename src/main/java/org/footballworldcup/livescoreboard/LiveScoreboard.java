@@ -5,20 +5,16 @@ import org.footballworldcup.livescoreboard.exceptions.ClashingTeamsException;
 import org.footballworldcup.livescoreboard.exceptions.LowerScoreException;
 import org.footballworldcup.livescoreboard.exceptions.MatchNotFoundException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class LiveScoreboard implements Scoreboard {
 
     private final RunningMatches runningMatches;
-    private final List<Match> finishedMatches;
     private final MatchesComparator matchesComparator;
     private int nextMatchNo;
 
     LiveScoreboard() {
         this.runningMatches = new RunningMatches();
-        this.finishedMatches = new ArrayList<>();
         this.matchesComparator = new MatchesComparator();
         this.nextMatchNo = 0;
     }
@@ -47,8 +43,8 @@ public class LiveScoreboard implements Scoreboard {
     }
 
     List<Match> getMatches() {
-        return Stream
-                .concat(runningMatches.getMatches().stream(), finishedMatches.stream())
+        return runningMatches.getMatches()
+                .stream()
                 .sorted(matchesComparator)
                 .toList();
     }
