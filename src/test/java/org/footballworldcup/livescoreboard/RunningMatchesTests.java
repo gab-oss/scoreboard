@@ -27,7 +27,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void afterAddingOneMatch_getShouldReturnIt_withZeroScores()
+    public void add_whenNoClashingMatches_shouldAddItWithZeroScore()
             throws ClashingTeamsException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -41,7 +41,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithBlankHome_shouldThrowException() {
+    public void add_whenHomeTeamNameBlank_shouldThrowException() {
         String homeTeam = " ";
         String awayTeam = "Away";
         String expectedMessage = "Home team name is empty";
@@ -54,7 +54,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithBlankAway_shouldThrowException() {
+    public void add_whenAwayTeamNameBlank_shouldThrowException() {
         String homeTeam = "Home";
         String awayTeam = " ";
         String expectedMessage = "Away team name is empty";
@@ -67,7 +67,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithNullHome_shouldThrowException() {
+    public void add_whenHomeTeamNameNull_shouldThrowException() {
         String homeTeam = null;
         String awayTeam = "Away";
         String expectedMessage = "Home team name is empty";
@@ -80,7 +80,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithNullAway_shouldThrowException() {
+    public void add_whenAwayTeamNameNull_shouldThrowException() {
         String homeTeam = "Home";
         String awayTeam = null;
         String expectedMessage = "Away team name is empty";
@@ -93,7 +93,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchOfTeamAgainstItself_shouldThrowException() {
+    public void add_whenHomeAndAwayAreTheSame_shouldThrowException() {
         String team = "Team";
         String expectedMessage = "A team can't play a match against itself";
 
@@ -105,7 +105,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithHomeAlreadyPlayingAsHome_shouldThrowException()
+    public void add_whenHomeAlreadyPlayingMatchAsHome_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match
         String homeTeam = "Home";
@@ -123,7 +123,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithAwayAlreadyPlayingAsAway_shouldThrowException()
+    public void add_whenAwayAlreadyPlayingMatchAsAway_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match
         String homeTeam = "Home";
@@ -141,7 +141,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithHomeAlreadyPlayingAsAway_shouldThrowException()
+    public void add_whenHomeAlreadyPlayingMatchAsAway_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match
         String homeTeam = "Home";
@@ -159,7 +159,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenAddingMatchWithAwayAlreadyPlayingAsHome_shouldThrowException()
+    public void add_whenAwayAlreadyPlayingMatchAsHome_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         // add a valid match
         String homeTeam = "Home";
@@ -177,7 +177,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void afterUpdatingMatch_shouldHaveUpdatedScore()
+    public void update_whenMatchRunning_shouldUpdateScore()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -196,7 +196,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenUpdatingMatchWithSameScore_shouldHaveSameScore()
+    public void update_whenScoreIsTheSameAsPrevious_shouldKeepScore()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -215,7 +215,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenUpdatingMatchWithLowerScoreForHome_shouldThrowException()
+    public void update_whenUpdatingWithLowerHomeScore_shouldThrowException()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -235,7 +235,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenUpdatingMatchWithLowerScoreForAway_shouldThrowException()
+    public void update_whenUpdatingWithLowerAwayScore_shouldThrowException()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -255,7 +255,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void whenUpdatingNonrunningMatch_shouldThrowException()
+    public void update_whenUpdatingNotRunningMatch_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -281,7 +281,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void givenNoMatches_whenFinishingMatch_throwException() {
+    public void finish_whenNoMatchesRunning_shouldThrowException() {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -294,7 +294,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void givenRunningMatch_finishMatchShouldReturnIt()
+    public void finish_whenMatchIsRunning_shouldRemoveAndReturnIt()
             throws MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -307,7 +307,7 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void givenMatches_whenFinishingNonrunningMatch_shouldThrowException()
+    public void finish_whenThereAreRunningMatches_ButGivenMatchIsNotRunning_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
