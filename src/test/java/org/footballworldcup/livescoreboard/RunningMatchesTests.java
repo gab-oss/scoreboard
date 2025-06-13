@@ -373,8 +373,8 @@ public class RunningMatchesTests {
 
         List<Match> matches = runningMatches.getMatches();
         Assert.assertEquals(2, matches.size());
-        assertMatchAsExpected(matches.get(0), homeTeam, awayTeam2, 0, 0);
-        assertMatchAsExpected(matches.get(1), homeTeam2, awayTeam, 0, 0);
+        assertMatchAsExpected(matches.get(0), homeTeam2, awayTeam, 0, 0);
+        assertMatchAsExpected(matches.get(1), homeTeam, awayTeam2, 0, 0);
     }
 
     private static void assertMatchAsExpected(Match match, String homeTeam, String awayTeam,

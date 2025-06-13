@@ -18,9 +18,9 @@ public class ScoreboardTests {
     public void getSummary_whenMatchesGiven_shouldBeOrderedByTotalScoreAndStartingOrder() {
         Scoreboard scoreboard = new LiveScoreboard();
 
-        // arrange (running unless otherwise stated):
-        // Mexico - Canada: 0 – 5 - finished
-        // Spain - Brazil: 10 – 2 - finished
+        // arrange
+        // Mexico - Canada: 0 – 5
+        // Spain - Brazil: 10 – 2
         // Germany - France: 2 – 2
         // Uruguay - Italy: 6 – 6
         // Argentina - Australia: 3 - 1
@@ -29,13 +29,13 @@ public class ScoreboardTests {
         String canada = "Canada";
         int mexicoScore = 0;
         int canadaScore = 5;
-        startUpdateAndFinish(scoreboard, mexico, canada, mexicoScore, canadaScore);
+        startAndUpdate(scoreboard, mexico, canada, mexicoScore, canadaScore);
 
         String spain = "Spain";
         String brazil = "Brazil";
         int spainScore = 10;
         int brazilScore = 2;
-        startUpdateAndFinish(scoreboard, spain, brazil, spainScore, brazilScore);
+        startAndUpdate(scoreboard, spain, brazil, spainScore, brazilScore);
 
         String germany = "Germany";
         String france = "France";
