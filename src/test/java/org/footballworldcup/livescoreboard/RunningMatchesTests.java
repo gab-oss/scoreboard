@@ -14,16 +14,11 @@ import static org.junit.Assert.assertThrows;
 
 public class RunningMatchesTests {
 
-    RunningMatches runningMatches;
+    LiveScoreboard runningMatches;
 
     @Before
     public void initialize() {
-        this.runningMatches = new RunningMatches();
-    }
-
-    @Test
-    public void givenNoMatches_getShouldReturnEmptyList() {
-        Assert.assertTrue(runningMatches.getMatches().isEmpty());
+        this.runningMatches = new LiveScoreboard();
     }
 
     @Test
@@ -34,7 +29,7 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
 
         // act
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
         // assert
         List<Match> matches = runningMatches.getMatches();
@@ -49,7 +44,7 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
 
         Exception exception = assertThrows(BlankTeamNameException.class, () -> {
-            runningMatches.add(homeTeam, awayTeam, 0);
+            runningMatches.start(homeTeam, awayTeam);
         });
 
         String expectedMessage = "Home team name is empty";
@@ -62,7 +57,7 @@ public class RunningMatchesTests {
         String awayTeam = " ";
 
         Exception exception = assertThrows(BlankTeamNameException.class, () -> {
-            runningMatches.add(homeTeam, awayTeam, 0);
+            runningMatches.start(homeTeam, awayTeam);
         });
 
         String expectedMessage = "Away team name is empty";
@@ -75,7 +70,7 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
 
         Exception exception = assertThrows(BlankTeamNameException.class, () -> {
-            runningMatches.add(homeTeam, awayTeam, 0);
+            runningMatches.start(homeTeam, awayTeam);
         });
 
         String expectedMessage = "Home team name is empty";
@@ -88,7 +83,7 @@ public class RunningMatchesTests {
         String awayTeam = null;
 
         Exception exception = assertThrows(BlankTeamNameException.class, () -> {
-            runningMatches.add(homeTeam, awayTeam, 0);
+            runningMatches.start(homeTeam, awayTeam);
         });
 
         String expectedMessage = "Away team name is empty";
@@ -100,7 +95,7 @@ public class RunningMatchesTests {
         String team = "Team";
 
         Exception exception = assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(team, team, 0);
+            runningMatches.start(team, team);
         });
 
         String expectedMessage = "A team can't play a match against itself";
@@ -115,14 +110,14 @@ public class RunningMatchesTests {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
         // when acting add another match with the same "home"
         String awayTeam2 = "Away2";
 
         //act and assert
         Exception exception = assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(homeTeam, awayTeam2, 1);
+            runningMatches.start(homeTeam, awayTeam2);
         });
 
         String expectedMessage = "Team already playing";
@@ -137,14 +132,14 @@ public class RunningMatchesTests {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
         // when acting add another match with the same "away"
         String homeTeam2 = "Home2";
 
         // act and assert
         Exception exception = assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(homeTeam2, awayTeam, 1);
+            runningMatches.start(homeTeam2, awayTeam);
         });
 
         String expectedMessage = "Team already playing";
@@ -159,14 +154,14 @@ public class RunningMatchesTests {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
         // when acting add another match with Away playing as "home"
         String awayTeam2 = "Away2";
 
         // act and assert
         Exception exception = assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(awayTeam, awayTeam2, 1);
+            runningMatches.start(awayTeam, awayTeam2);
         });
 
         String expectedMessage = "Team already playing";
@@ -181,14 +176,14 @@ public class RunningMatchesTests {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
         // when acting add another match with Home playing as "away"
         String home2 = "Home2";
 
         // act and assert
         Exception exception = assertThrows(ClashingTeamsException.class, () -> {
-            runningMatches.add(home2, homeTeam, 1);
+            runningMatches.start(home2, homeTeam);
         });
 
         String expectedMessage = "Team already playing";
@@ -204,7 +199,7 @@ public class RunningMatchesTests {
         int newHomeScore = 1;
         int newAwayScore = 2;
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
         // act
         runningMatches.update(homeTeam, awayTeam, newHomeScore, newAwayScore);
@@ -225,7 +220,7 @@ public class RunningMatchesTests {
         int newHomeScore = 0;
         int newAwayScore = 1;
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
         // act
         runningMatches.update(homeTeam, awayTeam, newHomeScore, newAwayScore);
@@ -246,7 +241,7 @@ public class RunningMatchesTests {
         int newHomeScore = 1;
         int newAwayScore = 0;
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
         // act
         runningMatches.update(homeTeam, awayTeam, newHomeScore, newAwayScore);
@@ -268,7 +263,7 @@ public class RunningMatchesTests {
         int secondUpdateHomeScore = 0;
         int newAwayScore = 2;
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
         runningMatches.update(homeTeam, awayTeam, firstUpdateHomeScore, newAwayScore);
 
         // act and assert
@@ -290,7 +285,7 @@ public class RunningMatchesTests {
         int firstUpdateAwayScore = 1;
         int secondUpdateAwayScore = 0;
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
         runningMatches.update(homeTeam, awayTeam, newHomeScore, firstUpdateAwayScore);
 
         // act and assert
@@ -314,8 +309,8 @@ public class RunningMatchesTests {
         // add matches of Home and Away with other teams to check if they won't be updated
         String homeTeam2 = "Home2";
         String awayTeam2 = "Away2";
-        runningMatches.add(homeTeam, awayTeam2, 0);
-        runningMatches.add(homeTeam2, awayTeam, 1);
+        runningMatches.start(homeTeam, awayTeam2);
+        runningMatches.start(homeTeam2, awayTeam);
 
         // act and assert
         Exception exception = assertThrows(MatchNotFoundException.class, () -> {
@@ -326,8 +321,8 @@ public class RunningMatchesTests {
         Assert.assertEquals(expectedMessage, exception.getMessage());
 
         List<Match> matches = runningMatches.getMatches();
-        assertMatchAsExpected(matches.get(0), homeTeam, awayTeam2, 0, 0);
-        assertMatchAsExpected(matches.get(1), homeTeam2, awayTeam, 0, 0);
+        assertMatchAsExpected(matches.get(0), homeTeam2, awayTeam, 0, 0);
+        assertMatchAsExpected(matches.get(1), homeTeam, awayTeam2, 0, 0);
     }
 
     @Test
@@ -349,11 +344,10 @@ public class RunningMatchesTests {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
-        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.start(homeTeam, awayTeam);
 
-        Match match = runningMatches.finish(homeTeam, awayTeam);
+        runningMatches.finish(homeTeam, awayTeam);
         Assert.assertTrue(runningMatches.getMatches().isEmpty());
-        assertMatchAsExpected(match, homeTeam, awayTeam, 0, 0);
     }
 
     @Test
@@ -366,8 +360,8 @@ public class RunningMatchesTests {
         // add matches of Home and Away with other teams to check if they won't be removed
         String homeTeam2 = "Home2";
         String awayTeam2 = "Away2";
-        runningMatches.add(homeTeam, awayTeam2, 0);
-        runningMatches.add(homeTeam2, awayTeam, 1);
+        runningMatches.start(homeTeam, awayTeam2);
+        runningMatches.start(homeTeam2, awayTeam);
 
         // act and assert
         Exception exception = assertThrows(MatchNotFoundException.class, () -> {

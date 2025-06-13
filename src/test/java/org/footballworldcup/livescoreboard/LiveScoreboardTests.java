@@ -39,18 +39,37 @@ public class LiveScoreboardTests {
     }
 
     @Test
-    public void finish_whenMatchWasRunning_shouldKeepItInMatches()
-            throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
+    public void start_whenMatchWithSameTeamsFinished_shouldAddMatch() throws ClashingTeamsException, BlankTeamNameException {
+        // arrange
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        scoreboard.start(homeTeam, awayTeam);
+        scoreboard.finish(homeTeam, awayTeam);
+
+        // act
+        scoreboard.start(homeTeam, awayTeam);
+
+        // assert
+        List<Match> matches = scoreboard.getMatches();
+        Assert.assertEquals(2, matches.size());
+        assertMatchAsExpected(matches.getFirst(), homeTeam, awayTeam, 0, 0);
+        assertMatchAsExpected(matches.get(1), homeTeam, awayTeam, 0, 0);
+    }
+
+    @Test
+    public void start_whenClashingMatchesRunning_shouldThrowException() throws ClashingTeamsException, BlankTeamNameException {
         // arrange
         String homeTeam = "Home";
         String awayTeam = "Away";
 
         scoreboard.start(homeTeam, awayTeam);
 
-        // act
-        scoreboard.finish(homeTeam, awayTeam);
+        // act and assert
+        Exception exception = assertThrows(ClashingTeamsException.class, () -> {
+            scoreboard.start(homeTeam, awayTeam);
+        });
 
-        // assert
         List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(1, matches.size());
         assertMatchAsExpected(matches.getFirst(), homeTeam, awayTeam, 0, 0);
@@ -108,6 +127,80 @@ public class LiveScoreboardTests {
         // ordered by starting order
         assertMatchAsExpected(matches.getFirst(), homeTeam2, awayTeam2, 0, 0);
         assertMatchAsExpected(matches.getLast(), homeTeam, awayTeam, 0, 0);
+    }
+
+    @Test
+    public void update_whenMatchWithSameTeamsFinishedAndNewStarted_shouldUpdateRunningMatch()
+            throws ClashingTeamsException, BlankTeamNameException {
+        // arrange
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        int newHomeTeamScore = 1;
+
+        scoreboard.start(homeTeam, awayTeam);
+        scoreboard.finish(homeTeam, awayTeam);
+        scoreboard.start(homeTeam, awayTeam);
+
+        // act
+        scoreboard.update(homeTeam, awayTeam, newHomeTeamScore, 0);
+
+        // assert
+        List<Match> matches = scoreboard.getMatches();
+        Assert.assertEquals(2, matches.size());
+        // make sure running is first (should have higher order number)
+        Assert.assertEquals(1, matches.getFirst().getOrderNo());
+        assertMatchAsExpected(matches.getFirst(), homeTeam, awayTeam, newHomeTeamScore, 0);
+        assertMatchAsExpected(matches.get(1), homeTeam, awayTeam, 0, 0);
+    }
+
+    @Test
+    public void finish_whenMatchRunning_shouldKeepItInMatches()
+            throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
+        // arrange
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        scoreboard.start(homeTeam, awayTeam);
+
+        // act
+        scoreboard.finish(homeTeam, awayTeam);
+
+        // assert
+        List<Match> matches = scoreboard.getMatches();
+        Assert.assertEquals(1, matches.size());
+        assertMatchAsExpected(matches.getFirst(), homeTeam, awayTeam, 0, 0);
+    }
+
+    @Test
+    public void finish_whenMatchNeverRan_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
+        // arrange
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+
+        // act and assert
+        Exception exception = assertThrows(MatchNotFoundException.class, () -> {
+            scoreboard.finish(homeTeam, awayTeam);
+        });
+
+        Assert.assertTrue(scoreboard.getMatches().isEmpty());
+    }
+
+    @Test
+    public void finish_whenMatchAlreadyFinished_shouldThrowException()
+            throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
+        // arrange
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        scoreboard.start(homeTeam, awayTeam);
+        scoreboard.finish(homeTeam, awayTeam);
+
+        // act and assert
+        Exception exception = assertThrows(MatchNotFoundException.class, () -> {
+            scoreboard.finish(homeTeam, awayTeam);
+        });
+
+        Assert.assertEquals(1, scoreboard.getMatches().size());
     }
 
     @Test
