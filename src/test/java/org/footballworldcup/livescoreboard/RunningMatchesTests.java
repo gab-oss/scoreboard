@@ -198,11 +198,28 @@ public class RunningMatchesTests {
     }
 
     @Test
-    public void update_whenScoreIsTheSameAsPrevious_shouldKeepScore()
+    public void update_whenHomeScoreIsTheSameAsPrevious_shouldKeepScore()
             throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
         int newHomeScore = 0;
+        int newAwayScore = 1;
+
+        runningMatches.add(homeTeam, awayTeam, 0);
+        runningMatches.update(homeTeam, awayTeam, newHomeScore, newAwayScore);
+
+        List<Match> matches = runningMatches.getMatches();
+        Match match = matches.getFirst();
+        Assert.assertEquals(1, matches.size());
+        assertMatchAsExpected(match, homeTeam, awayTeam, newHomeScore, newAwayScore);
+    }
+
+    @Test
+    public void update_whenAwayScoreIsTheSameAsPrevious_shouldKeepScore()
+            throws ClashingTeamsException, LowerScoreException, MatchNotFoundException, BlankTeamNameException {
+        String homeTeam = "Home";
+        String awayTeam = "Away";
+        int newHomeScore = 1;
         int newAwayScore = 0;
 
         runningMatches.add(homeTeam, awayTeam, 0);
