@@ -22,12 +22,12 @@ public class LiveScoreboardTests {
     }
 
     @Test
-    public void whenNoMatches_matchesShouldBeEmpty() {
+    public void getMatches_whenNoRunningMatches_shouldBeEmpty() {
         Assert.assertTrue(scoreboard.getMatches().isEmpty());
     }
 
     @Test
-    public void afterStartingMatch_matchesShouldHaveIt() throws ClashingTeamsException, BlankTeamNameException {
+    public void start_whenNoClashingMatches_shouldAddMatch() throws ClashingTeamsException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
 
@@ -39,7 +39,7 @@ public class LiveScoreboardTests {
     }
 
     @Test
-    public void givenFinishedMatch_matchesShouldHaveIt()
+    public void finish_whenMatchWasRunning_shouldKeepItInMatches()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -53,7 +53,7 @@ public class LiveScoreboardTests {
     }
 
     @Test
-    public void givenStartedMatch_afterUpdate_matchesShouldHaveUpdatedScore()
+    public void update_givenRunningMatch_shouldSetNewScore()
             throws LowerScoreException, MatchNotFoundException, ClashingTeamsException, BlankTeamNameException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -68,7 +68,7 @@ public class LiveScoreboardTests {
     }
 
     @Test
-    public void givenFinishedMatch_whenUpdating_shouldThrowError()
+    public void update_whenMatchFinished_shouldThrowException()
             throws ClashingTeamsException, BlankTeamNameException, MatchNotFoundException {
         String homeTeam = "Home";
         String awayTeam = "Away";
@@ -101,7 +101,7 @@ public class LiveScoreboardTests {
     }
 
     @Test
-    public void givenMatchesWithDifferentScores_matchesShouldHaveThemOrdered()
+    public void getMatches_givenMatchesWithDifferentTotalScores_shouldHaveThemOrderedByScore()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
         // set-up:
         // running: match1: total score 0, match2: total score 3
@@ -148,7 +148,7 @@ public class LiveScoreboardTests {
     }
 
     @Test
-    public void givenMatchesWithSameScores_matchesShouldHaveThemOrdered()
+    public void getMatches_givenMatchesWithSameScore_shouldHaveThemOrderedByStartingOrder()
             throws ClashingTeamsException, BlankTeamNameException, LowerScoreException, MatchNotFoundException {
         // set-up:
         // running: match1: added 1st, match2: added 4th
