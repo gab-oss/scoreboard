@@ -9,13 +9,13 @@ import java.util.List;
 public class ScoreboardTests {
 
     @Test
-    public void whenNoMatches_summaryShouldBeEmpty() {
+    public void getSummary_whenNoMatchesInSystem_shouldBeEmpty() {
         Scoreboard scoreboard = new LiveScoreboard();
         Assert.assertTrue(scoreboard.getSummary().isEmpty());
     }
 
     @Test
-    public void givenMatches_summaryShouldHaveThemOrdered() {
+    public void getSummary_whenMatchesGiven_shouldBeOrderedByTotalScoreAndStartingOrder() {
         Scoreboard scoreboard = new LiveScoreboard();
 
         // set-up (running unless otherwise stated):
