@@ -33,9 +33,9 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
 
         runningMatches.add(homeTeam, awayTeam, 0);
+
         List<Match> matches = runningMatches.getMatches();
         Match match = matches.getFirst();
-
         Assert.assertEquals(1, matches.size());
         assertMatchAsExpected(match, homeTeam, awayTeam, 0, 0);
     }
@@ -44,12 +44,12 @@ public class RunningMatchesTests {
     public void add_whenHomeTeamNameBlank_shouldThrowException() {
         String homeTeam = " ";
         String awayTeam = "Away";
-        String expectedMessage = "Home team name is empty";
 
         Exception exception = assertThrows(BlankTeamNameException.class, () -> {
             runningMatches.add(homeTeam, awayTeam, 0);
         });
 
+        String expectedMessage = "Home team name is empty";
         Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -57,12 +57,12 @@ public class RunningMatchesTests {
     public void add_whenAwayTeamNameBlank_shouldThrowException() {
         String homeTeam = "Home";
         String awayTeam = " ";
-        String expectedMessage = "Away team name is empty";
 
         Exception exception = assertThrows(BlankTeamNameException.class, () -> {
             runningMatches.add(homeTeam, awayTeam, 0);
         });
 
+        String expectedMessage = "Away team name is empty";
         Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -70,12 +70,12 @@ public class RunningMatchesTests {
     public void add_whenHomeTeamNameNull_shouldThrowException() {
         String homeTeam = null;
         String awayTeam = "Away";
-        String expectedMessage = "Home team name is empty";
 
         Exception exception = assertThrows(BlankTeamNameException.class, () -> {
             runningMatches.add(homeTeam, awayTeam, 0);
         });
 
+        String expectedMessage = "Home team name is empty";
         Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -83,24 +83,24 @@ public class RunningMatchesTests {
     public void add_whenAwayTeamNameNull_shouldThrowException() {
         String homeTeam = "Home";
         String awayTeam = null;
-        String expectedMessage = "Away team name is empty";
 
         Exception exception = assertThrows(BlankTeamNameException.class, () -> {
             runningMatches.add(homeTeam, awayTeam, 0);
         });
 
+        String expectedMessage = "Away team name is empty";
         Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
     public void add_whenHomeAndAwayAreTheSame_shouldThrowException() {
         String team = "Team";
-        String expectedMessage = "A team can't play a match against itself";
 
         Exception exception = assertThrows(ClashingTeamsException.class, () -> {
             runningMatches.add(team, team, 0);
         });
 
+        String expectedMessage = "A team can't play a match against itself";
         Assert.assertEquals(expectedMessage, exception.getMessage());
     }
 
@@ -110,6 +110,7 @@ public class RunningMatchesTests {
         // add a valid match
         String homeTeam = "Home";
         String awayTeam = "Away";
+
         runningMatches.add(homeTeam, awayTeam, 0);
 
         // add another match with the same "home"
@@ -128,6 +129,7 @@ public class RunningMatchesTests {
         // add a valid match
         String homeTeam = "Home";
         String awayTeam = "Away";
+
         runningMatches.add(homeTeam, awayTeam, 0);
 
         // add another match with the same "away"
@@ -146,6 +148,7 @@ public class RunningMatchesTests {
         // add a valid match
         String homeTeam = "Home";
         String awayTeam = "Away";
+
         runningMatches.add(homeTeam, awayTeam, 0);
 
         // add another match with Away playing as "home"
@@ -164,6 +167,7 @@ public class RunningMatchesTests {
         // add a valid match
         String homeTeam = "Home";
         String awayTeam = "Away";
+
         runningMatches.add(homeTeam, awayTeam, 0);
 
         // add another match with Home playing as "away"
@@ -183,15 +187,13 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
         int newHomeScore = 1;
         int newAwayScore = 2;
-        runningMatches.add(homeTeam, awayTeam, 0);
 
+        runningMatches.add(homeTeam, awayTeam, 0);
         runningMatches.update(homeTeam, awayTeam, newHomeScore, newAwayScore);
 
         List<Match> matches = runningMatches.getMatches();
         Match match = matches.getFirst();
-
         Assert.assertEquals(1, matches.size());
-
         assertMatchAsExpected(match, homeTeam, awayTeam, newHomeScore, newAwayScore);
     }
 
@@ -202,14 +204,12 @@ public class RunningMatchesTests {
         String awayTeam = "Away";
         int newHomeScore = 0;
         int newAwayScore = 0;
-        runningMatches.add(homeTeam, awayTeam, 0);
 
+        runningMatches.add(homeTeam, awayTeam, 0);
         runningMatches.update(homeTeam, awayTeam, newHomeScore, newAwayScore);
 
         List<Match> matches = runningMatches.getMatches();
         Match match = matches.getFirst();
-
-
         Assert.assertEquals(1, matches.size());
         assertMatchAsExpected(match, homeTeam, awayTeam, newHomeScore, newAwayScore);
     }

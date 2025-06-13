@@ -90,7 +90,7 @@ public class LiveScoreboardTests {
             scoreboard.update(homeTeam, awayTeam, homeTeamScore, awayTeamScore);
         });
 
-        // check if matches have both
+        // check if getMatches has both
         List<Match> matches = scoreboard.getMatches();
         Assert.assertEquals(2, matches.size());
 
